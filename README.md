@@ -31,6 +31,7 @@ npm -i
 ```
 npm start
 ```
+![alt text](img/services.png)
 
 ---
 ## Additionally
