@@ -1,0 +1,14 @@
+@import "../../../styles/vars.scss";
+
+.Inpt {
+    padding: 10px 15px;
+    font-size: 1rem;
+    background-color: $app-background-color;
+    border: 1px solid $app-background-color;
+    border-radius: $app-radius;
+    outline: none;
+}
+
+.Inpt:hover, .Inpt:focus {
+    background-color: #e7e7e7;
+}

@@ -1,0 +1,25 @@
+@import "./vars";
+@import "./briefClasses";
+
+
+.auth {
+    .form {
+        background-color: $app-white-color;
+        max-width: 250px;
+        margin: 0 auto;
+        border-radius: $app-radius;
+        padding: 20px 50px;
+        text-align: center;
+        margin-top: 100px;
+        box-shadow: $app-shadow;
+
+        h2 {
+            margin: 10px 0 25px 0;
+            font-size: 26px;
+        }
+    
+        Button {
+            margin-top: 5px;
+        }
+    }
+}

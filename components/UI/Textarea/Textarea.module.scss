@@ -1,0 +1,14 @@
+@import "../../../styles/vars.scss";
+
+.Txtr {
+    background-color: $app-background-color;
+    border: 1px solid $app-background-color;
+    border-radius: $app-radius;
+    font-size: 1rem;
+    padding: 7px 10px;
+    outline: none;
+}
+
+.Txtr:hover, .Txtr:focus {
+    background-color: #e7e7e7;
+}

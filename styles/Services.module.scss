@@ -1,0 +1,55 @@
+.services {
+    width: 100%;
+
+    .services__list {
+        padding: 15px 0px 0px 0px;
+        display: flex;
+    
+        .service__item {
+            text-decoration: none;
+
+            .service__block {
+                width: 150px;
+                height: 110px;
+                display: flex;
+                align-items: center;
+                text-align: center;
+                padding: 0 20px;
+                border-radius: 10px;
+                cursor: pointer;
+            }
+
+            .service__block:hover {
+                opacity: 0.8;
+            }
+
+            .service__title {
+                color: #fff;
+                font-size: 17px;
+                cursor: pointer;
+            }
+
+            .service__platform {
+                color: #000;
+                font-size: 15px;
+                text-align: center;
+                margin-top: 5px;
+                cursor: pointer;
+            }
+        }
+
+        .telegram {
+            .service__block {
+                background-color: #1E2D43;
+            }
+        }
+
+        .youtube {
+            margin-left: 20px;
+
+            .service__block {
+                background-color: rgb(236, 52, 52);
+            }
+        }
+    }
+}

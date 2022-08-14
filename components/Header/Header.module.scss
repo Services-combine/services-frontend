@@ -1,0 +1,122 @@
+@import "../../styles/vars";
+
+.header {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.02);
+    background-color: $app-white-color;
+    height: 60px;
+    position: fixed;
+    text-align: center;
+    z-index: 3; 
+
+    .container {
+        margin: 0 auto;
+        max-width: $app-max-width;
+        width: 100%;
+
+        .header__left {
+            .logo {
+                text-decoration: none;
+                font-size: 22px;
+                color: $app-black-color;
+                cursor: pointer;
+            }
+        }
+
+        .header__right {
+            .search, .notifications {
+                font-size: 28px;
+                cursor: pointer;
+                margin: 0 7px;
+            }
+
+            .search:hover, .notifications:hover {
+                opacity: 0.8;
+            }
+
+            Button {
+                margin-left: 10px;
+            }
+
+            .dropdown__btn {
+                background-color: $app-white-color;
+                box-shadow: none;
+                display: flex;
+                align-items: center;
+                padding: 5px 15px;
+                font-weight: bold;
+                border: none;
+                outline: none;
+
+                .profile__icon {
+                    background-color: $app-blue-color;
+                    border-radius: 100px;
+                    cursor: pointer;
+                    color: $app-white-color;
+                    font-weight: bold;
+                    font-size: 20px;
+                    display: flex;
+                    align-items: center;
+                    padding: 12px;
+                }
+            }
+
+            .dropdown__btn::after {
+                content: none;
+            }
+
+            .dropdown__btn:hover {
+                opacity: 0.9;
+            }
+
+            .actions {
+                background-color: $app-white-color;
+                border: none;
+                border-radius: $app-radius;
+                margin-top: 10px;
+                padding: 0 7px;
+                -webkit-box-shadow: $app-shadow;
+                box-shadow: $app-shadow;
+                -webkit-animation: show-dropdown .25s forwards;
+            
+                .action__item {
+                    width: 100%;
+                    border-radius: $app-radius;
+                    padding: 7px 0px;
+                    margin: 7px 0;
+                    display: flex;
+                    align-items: center;
+                    text-decoration: none;
+                    color: $app-black-color;
+                }
+                
+                .action__item:hover {
+                    background-color: $app-hover-color;
+                }
+                
+                .action__item:active {
+                    background-color: $app-background-color;
+                    color: $app-black-color;
+                }
+                
+                .action__icon {
+                    font-size: 20px;
+                    font-weight: bold;
+                    margin: 0px 7px 0px 10px;
+                }
+            
+                .logout {
+                    color: $app-red-color;
+                }
+            }
+        }
+    }
+}
+
+@keyframes show-dropdown {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

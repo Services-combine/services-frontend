@@ -1,0 +1,29 @@
+@import "./vars";
+
+.not__found__page {
+    width: 100%;
+    text-align: center;
+    margin-top: 100px;
+    color: $app-blue-color;
+
+    .error {
+        font-size: 110px;
+        position: relative;
+        line-height: 1;
+    }
+
+    .lead {
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+    .description {
+        font-size: 17px;
+        font-weight: 300;
+        margin-top: 5px;
+
+        .again__link {
+            text-decoration: none;
+        }
+    }
+}

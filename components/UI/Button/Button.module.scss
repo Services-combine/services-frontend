@@ -1,0 +1,48 @@
+@import "../../../styles/vars";
+
+.default {
+    display: inline-block;
+    padding: 0 20px;
+    height: 35px;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: initial;
+    border: 1.5px solid $app-blue-color;
+    border-radius: $app-radius;
+    cursor: pointer;
+    -moz-transition: all 0.1s ease-out;
+    -o-transition: all 0.1s ease-out;
+    -webkit-transition: all 0.1s ease-out;
+    transition: all 0.1s ease-out;
+}
+
+.default:before {
+    content: "";
+    vertical-align: middle;
+    height: 100%;
+}
+
+.fill {
+    color: $app-white-color;
+    background-color: $app-blue-color;
+}
+
+.fill:hover {
+    color: $app-black-color;
+    background-color: initial;
+}
+
+.outline {
+    color: $app-black-color;
+}
+
+.outline:hover {
+    color: $app-white-color;
+    background-color: $app-blue-color;
+}
+
+.disabled {
+    color: $app-white-color;
+    background-color: $app-blue-color;
+    opacity: 0.6;
+}

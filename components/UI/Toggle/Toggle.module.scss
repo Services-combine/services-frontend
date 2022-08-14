@@ -1,0 +1,26 @@
+@import "../../../styles/vars.scss";
+
+
+.label {
+    display: inline-flex;
+    align-items: center;
+
+    .Tggl {
+        -webkit-appearance: none;
+        appearance: none;
+        padding: 10px 20px;
+        border-radius: 16px;
+        background: radial-gradient(circle 7px, $app-white-color 100%, transparent calc(100% + 1px)) #ccc -9px;
+        transition: 0.3s ease-in-out;
+    }
+    
+    :checked {
+        background-color: $app-blue-color;
+        background-position: 9px;
+    }
+    
+    .TgglTxt {
+        margin-left: 10px;
+        font-size: 16px;
+    }
+}

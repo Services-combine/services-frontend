@@ -1,0 +1,73 @@
+@import "./vars";
+
+.h100 {
+    height: 100%;
+}
+
+.w100 {
+    width: 100%;
+}
+
+.d-ib {
+    display: inline-block;
+}
+
+.d-if {
+    display: inline-flex;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.d-block {
+    display: block;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.justify-around {
+    justify-content: space-around;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.m-auto {
+    margin: 0 auto;
+}
+
+.pos-r {
+    position: relative;
+}
+
+.pos-a {
+    position: absolute;
+}
+
+.fw-bold {
+    font-weight: bold;
+}
+
+.opacity-0 {
+    opacity: 0;
+}
+
+.opacity-8 {
+    opacity: 0.8;
+}
+
+.opacity-10 {
+    opacity: 1;
+}

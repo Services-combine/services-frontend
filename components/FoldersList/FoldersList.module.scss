@@ -1,0 +1,39 @@
+@import "../../styles/vars";
+
+.folders {
+    display: flex;
+    padding: 15px 0px 0px 0px;
+
+    .folder {
+        border: none;
+        border-radius: 10px;
+        text-align: center;
+        width: 100px;
+        height: 100px;
+        display: block;
+        text-decoration: none;
+        overflow: hidden;
+    
+        .folder__icon {
+            font-size: 50px;
+            margin-top: 7px;
+            color: $app-grey-color
+        }
+        
+        .folder__name {
+            font-size: 16px;
+            word-wrap: break-word; 
+            padding: 0px 5px;
+            color: #000;
+        }
+        
+        .folder__name:hover {
+            cursor: pointer;
+        }
+    }
+    
+    .folder:hover {
+        background-color: $app-white-color;
+        overflow: visible;
+    }
+}

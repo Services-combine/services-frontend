@@ -1,0 +1,28 @@
+.inviting {
+
+    .actions {
+        display: flex;
+        position: relative;
+        z-index: 2;
+
+        Button {
+            margin: 5px;
+
+            .action_item {
+                display: flex;
+                align-items: center;
+    
+                .action__icon {
+                    font-size: 17px;
+                    margin-right: 8px;
+                }
+            }
+        }
+    }
+    
+    .notification {
+        text-align: center;
+        margin-top: 100px;
+        color: #9e9e9e;
+    }
+}
