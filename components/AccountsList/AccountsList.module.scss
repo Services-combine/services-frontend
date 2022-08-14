@@ -1,0 +1,108 @@
+@import "../../styles/vars";
+
+.accounts {
+    margin-top: 10px;
+
+    .alert {
+        background-color: $app-white-color;
+        border: none;
+        border-radius: 10px;
+        padding: 12px 15px;
+        margin-bottom: 12px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .account__link {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .account__link:hover {
+            opacity: 0.6;
+        }
+
+        .actions {
+            float: right;
+            display: flex;
+            align-items: center;
+
+            .actions__parsing, .actions__create {
+                float: left;
+
+                .action__button {
+                    display: flex;
+                    align-items: center;
+                    padding: 1px 0;
+    
+                    .action__icon {
+                        font-size: 18px;
+                        margin-right: 5px;
+                    }
+                }
+            }
+
+            .actions__create Input, .actions__parsing Input {
+                width: 100px;
+                margin: 0 5px;
+            }
+
+            .actions__status {
+                float: right;
+
+                .status__launch {
+                    color: rgb(81, 133, 211);
+                    float: right;
+                    padding-top: 5px;
+                    font-weight: bold;
+                    font-size: 20px;
+                    margin-left: 10px;
+                }
+
+                .status__block {
+                    float: left;
+                    padding-top: 5px;
+                    font-weight: bold;
+                    font-size: 20px;
+                }
+
+                .no__block {
+                    color: rgb(62, 207, 118);
+                    font-size: 22px;
+                }
+
+                .info__block {
+                    color: rgb(81, 133, 211);
+                }
+
+                .info__block:hover::before {
+                    content: attr(unblocking);
+                    font-size: 18px;
+                    color: #000;
+                    padding-right: 5px;
+                }
+            }
+
+            .delete {
+                background-color: red;
+                border-radius: 10px;
+                border: none;
+                padding: 7px 10px;
+                margin-left: 10px;
+                float: left;
+
+                .delete__icon {
+                    font-size: 18px;
+                    color: #fff;
+                }
+            }
+
+            .delete:hover {
+                opacity: 0.6;
+            }
+        }
+    }
+}

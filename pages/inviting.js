@@ -1,6 +1,6 @@
-import { useState, useRef } from 'react'
 import Head from 'next/head';
-import { useRouter } from 'next/router';
+import { useState, useRef } from 'react'
+import { useRouter } from 'next/router'
 import styles from "../styles/Inviting.module.scss";
 import { Api } from '../utils/api';
 import { Snackbar } from "../components/UI/Snackbar";
@@ -12,17 +12,14 @@ import { ModalParams } from '../components/ModalsForm/ModalParams';
 import { IoIosStats } from "react-icons/io"
 import { AiOutlineFolderAdd } from "react-icons/ai"
 import { BiHome } from "react-icons/bi"
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 
 
-const Inviting = ({data, error}) => {
+const Inviting = ({folders, countAccounts, error}) => {
 	const snackbarRef = useRef(null);
 	const router = useRouter();
 	const [modalCreateFolder, setModalCreateFolder] = useState(false);
 	const [modalParams, setModalParams] = useState(false);
-
-    const showSnackbar = (message, type) => {
-        snackbarRef.current.show(message, type);
-    }
 
     if (error) {
         showSnackbar(error, 'error')
@@ -31,7 +28,7 @@ const Inviting = ({data, error}) => {
 	async function createFolder(folderName) {
         try {
 			await Api().inviting.createFolder(folderName);
-			getServerSideProps()
+			refreshData()
         } catch (e) {
 			showSnackbar('Ошибка при создании папки', 'error')
         }
@@ -44,6 +41,14 @@ const Inviting = ({data, error}) => {
 		}
 	}
 
+	const showSnackbar = (message, type) => {
+        snackbarRef.current.show(message, type);
+    }
+
+	const refreshData = () => {
+		router.replace(router.asPath);
+	}
+
 	return (
 		<div className={styles.inviting}>
 			<Head>
@@ -51,7 +56,7 @@ const Inviting = ({data, error}) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-			<div className={styles.actions}>
+			<ButtonToolbar className={styles.actions}>
 				<Button mode='fill' onClick={() => router.push("/")}>
 					<p className={styles.action_item}>
 						<BiHome className={styles.action__icon}/> 
@@ -72,10 +77,10 @@ const Inviting = ({data, error}) => {
 						Создать папку
 					</p>
 				</Button>
-			</div>
+			</ButtonToolbar>
 
-			{data.folders.length !== 0
-				? <FoldersList folders={data.folders} />
+			{folders.length !== 0
+				? <FoldersList folders={folders} />
 				: <h4 className={styles.notification}>У вас пока нет папок</h4>
 			}
 
@@ -84,7 +89,7 @@ const Inviting = ({data, error}) => {
             </Modal>
 
 			<Modal title='Показатели' visible={modalParams} setVisible={setModalParams}>
-                <ModalParams props={data.countAccounts}/>
+                <ModalParams props={countAccounts}/>
             </Modal>
 
 			<Snackbar ref={snackbarRef} />
@@ -94,11 +99,12 @@ const Inviting = ({data, error}) => {
 
 export const getServerSideProps = async (ctx) => {
     try {
-        const folders = await Api().inviting.getFolders();
+        const response = await Api().inviting.getFolders();
 
         return {
             props: {
-                data: folders.data,
+                folders: response.data.folders,
+				countAccounts: response.data.countAccounts
             },
         }
     } catch (e) {

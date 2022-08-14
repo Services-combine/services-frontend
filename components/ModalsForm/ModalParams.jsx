@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from './ModalsForm.module.scss';
 
 export const ModalParams = ({props}) => {

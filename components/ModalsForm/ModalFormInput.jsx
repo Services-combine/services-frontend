@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import styles from "./ModalsForm.module.scss"
 import { Input } from '../UI/Input';
 import { Button } from '../UI/Button';
@@ -31,7 +31,13 @@ export const ModalFormInput = ({create, mode, buttonText, defaultData}) => {
                 placeholder='Введите название' 
             />
             <br/>
-            <Button mode='fill' onClick={addInputText}>{buttonText}</Button>
+            <Button 
+                mode='fill' 
+                disabled={text == ""}
+                onClick={addInputText}
+            >
+                {buttonText}
+            </Button>
         </form>
 	);
 }

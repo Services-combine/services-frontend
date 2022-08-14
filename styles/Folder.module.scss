@@ -1,0 +1,44 @@
+.folder {
+
+    .actions {
+        position: relative;
+        z-index: 2;
+
+        Button {
+            margin: 5px;
+
+            .action_item {
+                display: flex;
+                align-items: center;
+    
+                .action__icon {
+                    font-size: 19px;
+                    margin-right: 8px;
+                }
+            }
+        }
+
+        .delete {
+            background-color: red;
+            border-radius: 10px;
+            border: none;
+            padding: 7px 12px;
+            float: left;
+
+            .delete__icon {
+                font-size: 18px;
+                color: #fff;
+            }
+        }
+
+        .delete:hover {
+            opacity: 0.6;
+        }
+    }
+
+    .notification {
+        text-align: center;
+        margin-top: 100px;
+        color: #9e9e9e;
+    }
+}
