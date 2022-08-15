@@ -8,19 +8,30 @@ import { FoldersList } from '../components/FoldersList';
 import { Button } from '../components/UI/Button';
 import { Modal } from '../components/UI/Modal';
 import { ModalFormInput } from '../components/ModalsForm/ModalFormInput';
+import { ModalSettings } from '../components/ModalsForm/ModalSettings';
 import { NavigationBar } from '../components/NavigationBar';
 import { CountAccounts } from '../components/CountAccounts';
 import { AiOutlineFolderAdd } from "react-icons/ai"
+import { FiSettings } from "react-icons/fi"
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 
 
-const Inviting = ({folders, countAccounts, error}) => {
+const Inviting = ({folders, countAccounts, settings, error}) => {
 	const snackbarRef = useRef(null);
 	const router = useRouter();
 	const [modalCreateFolder, setModalCreateFolder] = useState(false);
+	const [modalSettings, setModalSettings] = useState(false);
 
     if (error) {
         showSnackbar(error, 'error')
+    }
+
+	async function saveSettings(settings) {
+        try {
+            await Api().inviting.saveSettings(settings.countInviting, settings.countMailing);
+        } catch (e) {
+			showSnackbar('Ошибка при сохранении настроек', 'error')
+        }
     }
 
 	async function createFolder(folderName) {
@@ -32,12 +43,17 @@ const Inviting = ({folders, countAccounts, error}) => {
         }
     }
 
-	const getModalData = (getData) => {
+	const getModalCreate = (getData) => {
 		if (getData.mode === "createFolder") {
 			setModalCreateFolder(false);
 			createFolder(getData.text);
 		}
 	}
+
+	const getModalSettings = (settings) => {
+        setModalSettings(false);
+        saveSettings(settings);
+    }
 
 	const showSnackbar = (message, type) => {
         snackbarRef.current.show(message, type);
@@ -66,6 +82,13 @@ const Inviting = ({folders, countAccounts, error}) => {
 						Создать папку
 					</p>
 				</Button>
+
+				<Button mode='fill' onClick={() => setModalSettings(true)}>
+					<p className={styles.action_item}>
+						<FiSettings className={styles.action__icon}/> 
+						Настройки
+					</p>
+				</Button>
 			</ButtonToolbar>
 
 			{folders.length !== 0
@@ -74,7 +97,11 @@ const Inviting = ({folders, countAccounts, error}) => {
 			}
 
 			<Modal title='Создание папки' visible={modalCreateFolder} setVisible={setModalCreateFolder}>
-                <ModalFormInput create={getModalData} buttonText="Создать" mode="createFolder"/>
+                <ModalFormInput create={getModalCreate} buttonText="Создать" mode="createFolder"/>
+            </Modal>
+
+			<Modal title='Настройки' visible={modalSettings} setVisible={setModalSettings}>
+                <ModalSettings save={getModalSettings} settings={settings}/>
             </Modal>
 
 			<Snackbar ref={snackbarRef} />
@@ -84,12 +111,14 @@ const Inviting = ({folders, countAccounts, error}) => {
 
 export const getServerSideProps = async (ctx) => {
     try {
-        const response = await Api().inviting.getFolders();
+        const responseFolders = await Api(ctx).inviting.getFolders();
+		const responseSettings = await Api(ctx).inviting.getSettings();
 
         return {
             props: {
-                folders: response.data.folders,
-				countAccounts: response.data.countAccounts
+                folders: responseFolders.data.folders,
+				countAccounts: responseFolders.data.countAccounts,
+				settings: responseSettings.data
             },
         }
     } catch (e) {

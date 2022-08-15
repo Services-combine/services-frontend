@@ -113,10 +113,15 @@
     }
 }
 
-.params {
-    margin-top: 15px;
+.form__settings {
+    margin: 15px 0 10px 0;
 
-    h4 {
+    .title {
+        font-size: 15px;
+        margin: 5px 0;
+    }
+
+    Input {
         margin-bottom: 10px;
     }
 }

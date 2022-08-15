@@ -2,7 +2,15 @@
 export const InvitingApi = (instance) => ({
 
     async getFolders() {
-        return instance.get('/auth/user/inviting/')
+        return instance.get('/auth/user/inviting/get-folders')
+    },
+
+    async getSettings() {
+        return instance.get('/auth/user/inviting/get-settings')
+    },
+
+    async saveSettings(countInviting, countMailing) {
+        return instance.post('/auth/user/inviting/save-settings', {countInviting: Number(countInviting), countMailing: Number(countMailing)})
     },
 
     async createFolder(folderName) {
