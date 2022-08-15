@@ -2,7 +2,15 @@
 
 .folder {
 
+    .folder__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
     .actions {
+        margin-top: 10px;
+
         Button {
             margin: 5px;
 

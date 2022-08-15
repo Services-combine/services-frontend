@@ -8,12 +8,8 @@ import { selectUserData } from '../../redux/slices/user';
 import { useAppDispatch } from '../../redux/hooks';
 import { setUserData } from '../../redux/slices/user';
 import styles from "./Header.module.scss";
-import { AiOutlineBell, AiOutlineUser } from "react-icons/ai"
-import { BiExit, BiSearch } from "react-icons/bi"
-import { CgProfile } from "react-icons/cg"
-import { FiSettings } from "react-icons/fi"
-import { Button } from "../UI/Button"
-import Badge from '@mui/material/Badge';
+import { AiOutlineUser } from "react-icons/ai"
+import { BiExit } from "react-icons/bi"
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 

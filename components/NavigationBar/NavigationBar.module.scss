@@ -1,0 +1,29 @@
+@import "../../styles/vars";
+
+
+.navigation {
+    background-color: $app-white-color;
+    box-shadow: $app-shadow;
+    border: none;
+    border-radius: $app-radius;
+    padding: 12px 15px;
+
+    .navigation__item {
+        display: inline;
+
+        .separation {
+            margin: 0 8px;
+        }
+
+        .navigation__link {
+            text-decoration: none;
+            color: $app-black-color;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    
+        .navigation__link:hover {
+            opacity: 0.6;
+        }
+    }
+}

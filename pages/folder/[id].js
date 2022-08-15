@@ -13,6 +13,8 @@ import { ModalFormSelect } from '../../components/ModalsForm/ModalFormSelect';
 import { FoldersList } from '../../components/FoldersList';
 import { AccountsList } from '../../components/AccountsList';
 import { Snackbar } from "../../components/UI/Snackbar";
+import { NavigationBar } from "../../components/NavigationBar";
+import { CountAccounts } from "../../components/CountAccounts";
 import { TbMessageCircle } from "react-icons/tb"
 import { MdGroups, MdCreateNewFolder, MdOutlineDriveFileRenameOutline } from "react-icons/md"
 import { FaUserEdit, FaRandom } from "react-icons/fa"
@@ -255,6 +257,11 @@ const Folder = ({folders, accounts, accountsMove, countAccounts, dataFolder, pat
                 <title>Папка - {dataFolder.name}</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+
+			<div className={styles.folder__header}>
+				<NavigationBar pathHash={pathHash} service='inviting' />
+				<CountAccounts countAccounts={countAccounts} />
+			</div>
 
             <ButtonToolbar className={styles.actions}>
                 {accounts.length === 0 && folders.length === 0 &&

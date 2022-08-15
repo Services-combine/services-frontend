@@ -8,7 +8,7 @@ import { Button } from '../UI/Button';
 import { Input } from '../UI/Input';
 import { Modal } from '../UI/Modal';
 import { RiDeleteBinFill } from "react-icons/ri"
-import { BsCheck2 } from "react-icons/bs"
+import { BsCheckLg } from "react-icons/bs"
 import { FaInfoCircle } from "react-icons/fa"
 
 export const AccountItem = (props) => {
@@ -109,7 +109,7 @@ export const AccountItem = (props) => {
                                 {props.account.status_block === "clean"
                                     ? 
                                     <h6 className={clsx(styles.status__block, styles.no__block)}>
-                                        <BsCheck2 />
+                                        <BsCheckLg />
                                     </h6>
                                     : 
                                     <h6 className={clsx(styles.status__block, styles.info__block)} unblocking={props.account.status_block}>

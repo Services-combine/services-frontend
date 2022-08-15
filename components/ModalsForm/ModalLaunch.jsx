@@ -1,5 +1,4 @@
 import styles from './ModalsForm.module.scss';
-import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { Api } from '../../utils/api';
 import { Button } from '../UI/Button';
@@ -10,8 +9,6 @@ import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 
 export const ModalLaunch = ({launch, folder}) => {
     const router = useRouter();
-    const [isError, setIsError] = useState(null);
-    const timeout = 3000;
 
     async function checkBlock(e) {
         e.preventDefault()
@@ -19,10 +16,7 @@ export const ModalLaunch = ({launch, folder}) => {
 			const response = await Api().inviting.checkBlock(router.query.id);
             launch();
 		} catch (e) {
-			setIsError(e.response?.data?.message);
-			setTimeout(() => {
-				setIsError(null)
-			}, timeout)
+			console.log(e.response?.data?.message)
 		}
     }
 
@@ -32,10 +26,7 @@ export const ModalLaunch = ({launch, folder}) => {
 			const response = await Api().inviting.launchInviting(router.query.id);
             launch('inviting');
 		} catch (e) {
-			setIsError(e.response?.data?.message);
-			setTimeout(() => {
-				setIsError(null)
-			}, timeout)
+			console.log(e.response?.data?.message)
 		}
     }
 
@@ -45,10 +36,7 @@ export const ModalLaunch = ({launch, folder}) => {
 			const response = await Api().inviting.launchMailingUsernames(router.query.id);
             launch('mailing_usernames');
 		} catch (e) {
-			setIsError(e.response?.data?.message);
-			setTimeout(() => {
-				setIsError(null)
-			}, timeout)
+			console.log(e.response?.data?.message)
 		}
     }
 
@@ -58,10 +46,7 @@ export const ModalLaunch = ({launch, folder}) => {
 			const response = await Api().inviting.launchMailingGroups(router.query.id);
             launch('mailing_groups');
 		} catch (e) {
-			setIsError(e.response?.data?.message);
-			setTimeout(() => {
-				setIsError(null)
-			}, timeout)
+			console.log(e.response?.data?.message)
 		}
     }
 

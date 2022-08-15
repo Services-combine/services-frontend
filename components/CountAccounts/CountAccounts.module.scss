@@ -1,0 +1,20 @@
+.count__accounts {
+    display: inline-flex;
+    margin-left: 20px;
+
+    .count__item {
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+        font-size: 18px;
+        font-weight: bold;
+
+        .count__icon {
+            margin-right: 5px;
+        }
+
+        .counter {
+            margin-left: 5px;
+        }
+    }
+}

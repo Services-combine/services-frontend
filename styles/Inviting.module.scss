@@ -1,9 +1,14 @@
 .inviting {
 
+    .inviting__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
     .actions {
         display: flex;
-        position: relative;
-        z-index: 2;
+        margin-top: 10px;
 
         Button {
             margin: 5px;

@@ -1,3 +1,5 @@
+@import "./vars";
+
 .services {
     width: 100%;
 
@@ -9,6 +11,7 @@
             text-decoration: none;
 
             .service__block {
+                box-shadow: $app-shadow;
                 width: 150px;
                 height: 110px;
                 display: flex;
