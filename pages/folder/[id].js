@@ -23,7 +23,7 @@ import { BsFillPlayFill } from "react-icons/bs"
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 
 
-const Folder = ({folders, accounts, countAccounts, dataFolder, pathHash, foldersMove, error}) => {
+const Folder = ({folders, accounts, accountsMove, countAccounts, dataFolder, pathHash, foldersMove, error}) => {
     const snackbarRef = useRef(null);
     const router = useRouter();
     const [modalCreateFolder, setModalCreateFolder] = useState(false);
@@ -36,6 +36,9 @@ const Folder = ({folders, accounts, countAccounts, dataFolder, pathHash, folders
 	const [modalCreateAccount, setModaleCreateAccount] = useState(false);
 	const [modalLaunch, setModalLaunch] = useState(false);
 
+	if (error) {
+        showSnackbar(error, 'error')
+    }
 
     async function createFolder(folderName) {
         try {
@@ -339,8 +342,10 @@ const Folder = ({folders, accounts, countAccounts, dataFolder, pathHash, folders
 
             {accounts.length === 0
 				? <h4 className={styles.notification}>У вас пока нет аккаунтов</h4>
-				: <AccountsList 
+				: <AccountsList
 					accounts={accounts} 
+					accountsMove={accountsMove}
+					folderName={dataFolder.name}
                     remove={deleteAccount} 
                     sendCodeParsing={sendCodeParsing} 
                     parsingApi={parsingApi} 
@@ -427,11 +432,12 @@ export const getServerSideProps = async (ctx) => {
     try {
         const response = await Api(ctx).inviting.getFolderById(ctx.params.id);
         const foldersMove = await Api(ctx).inviting.getFoldedrsMove(ctx.params.id)
-
+		console.log(response)
         return {
             props: {
                 folders: response.data.folders ? response.data.folders : [],
                 accounts: response.data.accounts ? response.data.accounts : [],
+				accountsMove: response.data.accountsMove ? response.data.accountsMove : [],
                 countAccounts: response.data.countAccounts,
                 dataFolder: response.data.folder,
                 pathHash: response.data.pathHash,

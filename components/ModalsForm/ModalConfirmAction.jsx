@@ -1,14 +1,8 @@
-import { useState, useEffect } from 'react'
+import styles from "./ModalsForm.module.scss"
 import { Button } from '../UI/Button';
 
 export const ModalConfirmAction = ({result}) => {
-    const [action, setAction] = useState(null);
-
-    useEffect(() => {
-        addResultAction();
-    }, [action])
-
-    const addResultAction = () => {
+    const addResultAction = (action) => {
 		const newAction = {
             action, id: Date.now()
         }
@@ -16,10 +10,19 @@ export const ModalConfirmAction = ({result}) => {
 	}
 
     return (
-        <div style={{textAlign: "center"}}>
-            <h5>Вы уверены?</h5>
-            <Button style={{marginRight: 10, marginTop: 10}} onClick={() => setAction(true)}>Да</Button>
-            <Button style={{background: "rgb(233, 62, 62)", color: "#dedede"}} onClick={() => setAction(false)}>Отмена</Button>
+        <div className={styles.form__confirm}>
+            <h5 className={styles.confirm__title}>Вы уверены?</h5>
+
+            <div className={styles.actions}>
+                <Button onClick={() => addResultAction(true)}>Да</Button>
+                <Button 
+                    mode='outline' 
+                    className={styles.button__cancel} 
+                    onClick={() => addResultAction(false)}
+                >
+                    Отмена
+                </Button>
+            </div>
         </div>
 	);
 }

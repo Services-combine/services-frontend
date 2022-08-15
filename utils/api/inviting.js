@@ -13,8 +13,8 @@ export const InvitingApi = (instance) => ({
         return instance.post(`/auth/user/inviting/${folderID}/create-folder`, {name: folderName})
     },
 
-    async getFolderById(folderID, limit = 20, skip = 0) {
-        return instance.post(`/auth/user/inviting/${folderID}`, {limit: limit, skip: skip})
+    async getFolderById(folderID) {
+        return instance.get(`/auth/user/inviting/${folderID}`)
     },
 
     async getFoldedrsMove(folderID) {
@@ -67,10 +67,6 @@ export const InvitingApi = (instance) => ({
 
     async createAccount(folderID, name, phone) {
         return instance.post(`/auth/user/inviting/${folderID}/create-account`, {name: name, phone: phone})
-    },
-
-    async getAccountById(folderID, accountID) {
-        return instance.get(`/auth/user/inviting/${folderID}/${accountID}`)
     },
 
     async saveSettingsAccount(folderID, accountID, name, interval, folder) {

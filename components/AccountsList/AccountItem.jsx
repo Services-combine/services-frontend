@@ -1,8 +1,9 @@
 import clsx from 'clsx';
-import Link from "next/link"
 import styles from './AccountsList.module.scss';
+import { useRouter } from 'next/router';
 import { useState } from 'react'
 import { ModalConfirmAction } from '../ModalsForm/ModalConfirmAction';
+import { ModalFormAccount } from '../ModalsForm/ModalFormAccount';
 import { Button } from '../UI/Button';
 import { Input } from '../UI/Input';
 import { Modal } from '../UI/Modal';
@@ -11,8 +12,10 @@ import { BsCheck2 } from "react-icons/bs"
 import { FaInfoCircle } from "react-icons/fa"
 
 export const AccountItem = (props) => {
-    const [modalDelete, setModalDelete] = useState(false);
+    const router = useRouter();
     const [code, setCode] = useState("");
+    const [modalDelete, setModalDelete] = useState(false);
+    const [modalAccount, setModalAccount] = useState(false);
 
     const deleteAccount = () => {
         props.remove(props.account);
@@ -42,15 +45,22 @@ export const AccountItem = (props) => {
             deleteAccount();
         }
     }
+
+    const closeAfterSave = () => {
+        setModalAccount(false)
+        refreshData()
+    }
+
+    const refreshData = () => {
+		router.replace(router.asPath);
+	}
     
     return (
         <>
             <div className={clsx(styles.alert, "alert-secondary")}>
-                <Link href={`/account/${props.account.id}`}>
-                    <p className={styles.account__link}>
-                        {props.index+1}. {props.account.name} (+{props.account.phone})
-                    </p>
-                </Link>
+                <p className={styles.account__link} onClick={() => setModalAccount(true)}>
+                    {props.index+1}. {props.account.name} (+{props.account.phone})
+                </p>
 
                 <div className={styles.actions}>
                     {props.account.api_id === 0
@@ -114,14 +124,23 @@ export const AccountItem = (props) => {
                             </div>
                     }
 
-                    <button className={styles.delete} onClick={deleteAccount}>
+                    <button className={styles.delete} onClick={() => setModalDelete(true)}>
                         <RiDeleteBinFill className={styles.delete__icon} />
                     </button>
                 </div>
             </div>
 
-            <Modal visible={modalDelete} setVisible={setModalDelete}>
+            <Modal title="Удаление аккаунта" visible={modalDelete} setVisible={setModalDelete}>
                 <ModalConfirmAction result={getModalAction}/>
+            </Modal>
+
+            <Modal title="Аккаунт" visible={modalAccount} setVisible={setModalAccount}>
+                <ModalFormAccount 
+                    account={props.account} 
+                    accountsMove={props.accountsMove}
+                    folderName={props.folderName}
+                    closeAfterSave={closeAfterSave}
+                />
             </Modal>
         </>
     );

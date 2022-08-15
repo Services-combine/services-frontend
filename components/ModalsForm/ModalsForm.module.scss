@@ -42,6 +42,77 @@
     }
 }
 
+.form__confirm {
+    margin: 15px 0 10px 0;
+    text-align: center;
+
+    .confirm__title {
+        font-size: 17px;
+    }
+
+    .actions {
+        margin-top: 12px;
+
+        .button__cancel {
+            background-color: red;
+            display: inline-block;
+            padding: 11px 15px;
+            font-size: 15px;
+            font-weight: bold;
+            border: none;
+            border-radius: $app-radius;
+            margin-left: 5px;
+            color: $app-white-color;
+        }
+    
+        .button__cancel:hover {
+            opacity: 0.6;
+        }
+    }
+}
+
+.form__account {
+    margin: 15px 0 10px 0;
+
+    .title {
+        font-size: 15px;
+        margin: 5px 0;
+    }
+
+    .name__account {
+        margin-bottom: 10px;
+
+        Input {
+            width: 90%;
+        }
+    }
+
+    .interval {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        .generate {
+            background: rgb(50, 189, 147);
+            border-radius: $app-radius;
+            border: none;
+            padding: 10px 12px;
+            margin-left: 10px;
+            float: left;    
+
+            .generate__icon {
+                font-size: 18px;
+                color: #fff;
+                display: flex;
+            }
+        }
+    }
+
+    Select {
+        margin-bottom: 10px;
+    }
+}
+
 .params {
     margin-top: 15px;
 

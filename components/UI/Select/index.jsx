@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './Select.module.scss'
 
 export const Select = ({options, defaultName, value, onChange}) => {
