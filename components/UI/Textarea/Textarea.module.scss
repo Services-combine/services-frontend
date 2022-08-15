@@ -7,6 +7,12 @@
     font-size: 1rem;
     padding: 7px 10px;
     outline: none;
+    min-height: 50px;
+    max-height: 500px;
+    min-width: 250px;
+    max-width: 500px;
+    resize: vertical;
+    font-family: $app-font-family;
 }
 
 .Txtr:hover, .Txtr:focus {

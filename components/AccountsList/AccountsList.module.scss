@@ -6,7 +6,7 @@
     .alert {
         background-color: $app-white-color;
         border: none;
-        border-radius: 10px;
+        border-radius: $app-radius;
         padding: 12px 15px;
         margin-bottom: 12px;
         width: 100%;
@@ -34,14 +34,7 @@
                 float: left;
 
                 .action__button {
-                    display: flex;
-                    align-items: center;
                     padding: 1px 0;
-    
-                    .action__icon {
-                        font-size: 18px;
-                        margin-right: 5px;
-                    }
                 }
             }
 
@@ -88,7 +81,7 @@
 
             .delete {
                 background-color: red;
-                border-radius: 10px;
+                border-radius: $app-radius;
                 border: none;
                 padding: 7px 10px;
                 margin-left: 10px;

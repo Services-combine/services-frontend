@@ -1,9 +1,11 @@
-import clsx from 'clsx';
 import styles from './ModalsForm.module.scss';
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { Api } from '../../utils/api';
 import { Button } from '../UI/Button';
+import { BsFillPlayFill } from "react-icons/bs"
+import { TbLock } from 'react-icons/tb'
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar' 
 
 
 export const ModalLaunch = ({launch, folder}) => {
@@ -65,11 +67,33 @@ export const ModalLaunch = ({launch, folder}) => {
 
     if (!folder.inviting && !folder.mailing_usernames && !folder.mailing_groups) {
         return (
-            <form className={clsx(styles.launch__btns, "btn-toolbar")} role="toolbar">   
-                <Button onClick={checkBlock}><i className="fas fa-user-lock"></i> Блокировка</Button>
-                <Button onClick={launchInviting}><i className="fas fa-play"></i> Инвайтинг</Button>
-                <Button onClick={launchMailingUsernames}><i className="fas fa-play"></i> Рассылка пользователям</Button>
-                <Button onClick={launchMailingGroups}><i className="fas fa-play"></i> Рассылка в группы</Button>
+            <form className={styles.form__input}>   
+                <ButtonToolbar className={styles.launch__actions}>
+                    <Button mode='fill' onClick={checkBlock}>
+                        <p className={styles.action__item}>
+                            <TbLock className={styles.action__icon} />
+                            Блокировка
+                        </p>
+                    </Button>
+                    <Button mode='fill' onClick={launchInviting}>
+                        <p className={styles.action__item}>
+                            <BsFillPlayFill className={styles.action__icon} />
+                            Инвайтинг
+                        </p>
+                    </Button>
+                    <Button mode='fill' onClick={launchMailingUsernames}>
+                        <p className={styles.action__item}>
+                            <BsFillPlayFill className={styles.action__icon} />
+                            Рассылка пользователям
+                        </p>
+                    </Button>
+                    <Button mode='fill' onClick={launchMailingGroups}>
+                        <p className={styles.action__item}>
+                            <BsFillPlayFill className={styles.action__icon} />
+                            Рассылка в группы
+                        </p>
+                    </Button>
+                </ButtonToolbar>
             </form>
         );
     }

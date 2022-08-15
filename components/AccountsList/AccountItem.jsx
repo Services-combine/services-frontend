@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import clsx from 'clsx';
 import Link from "next/link"
 import styles from './AccountsList.module.scss';
-import clsx from 'clsx';
+import { useState } from 'react'
 import { ModalConfirmAction } from '../ModalsForm/ModalConfirmAction';
 import { Button } from '../UI/Button';
 import { Input } from '../UI/Input';
@@ -9,9 +9,6 @@ import { Modal } from '../UI/Modal';
 import { RiDeleteBinFill } from "react-icons/ri"
 import { BsCheck2 } from "react-icons/bs"
 import { FaInfoCircle } from "react-icons/fa"
-import { RiSendPlaneLine } from "react-icons/ri"
-import { AiOutlineFileAdd } from "react-icons/ai"
-import { TbApi } from "react-icons/tb"
 
 export const AccountItem = (props) => {
     const [modalDelete, setModalDelete] = useState(false);
@@ -61,7 +58,6 @@ export const AccountItem = (props) => {
                         <div className={styles.actions__parsing}>
                             <Button mode='fill' onClick={sendCodeParsing}>
                                 <p className={styles.action__button}>
-                                    <RiSendPlaneLine className={styles.action__icon} /> 
                                     Отпправить код
                                 </p>
                             </Button>
@@ -73,7 +69,6 @@ export const AccountItem = (props) => {
                             />
                              <Button mode='outline' onClick={parsingApi}>
                                 <p className={styles.action__button}>
-                                    <TbApi className={styles.action__icon} /> 
                                     Спарсить api
                                 </p>
                             </Button>
@@ -84,7 +79,6 @@ export const AccountItem = (props) => {
                             <div className={styles.actions__create}>
                                 <Button mode='fill' onClick={sendCodeSession}>
                                     <p className={styles.action__button}>
-                                        <RiSendPlaneLine className={styles.action__icon} /> 
                                         Отпправить код
                                     </p>
                                 </Button>
@@ -96,7 +90,6 @@ export const AccountItem = (props) => {
                                 />
                                 <Button mode='outline' onClick={createSession}>
                                     <p className={styles.action__button}>
-                                        <AiOutlineFileAdd className={styles.action__icon} /> 
                                         Создать файл
                                     </p>
                                 </Button>

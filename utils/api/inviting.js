@@ -98,6 +98,6 @@ export const InvitingApi = (instance) => ({
     },
 
     async createSession(folderID, accountID, code) {
-        return instance.get(`/auth/user/inviting/${folderID}/${accountID}/create-session`, {password: code})
+        return instance.post(`/auth/user/inviting/${folderID}/${accountID}/create-session`, {password: code})
     },
 })

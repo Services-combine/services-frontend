@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import styles from './ModalsForm.module.scss'
 import { Input } from '../UI/Input';
 import { Button } from '../UI/Button';
 
@@ -18,7 +19,7 @@ export const ModalFormCreateAccount = ({create, mode}) => {
 	}
 
     return (
-        <form>
+        <form className={styles.form__input}>
             <Input 
                 value={name} 
                 onChange={e => setName(e.target.value)}
@@ -33,7 +34,13 @@ export const ModalFormCreateAccount = ({create, mode}) => {
                 placeholder='Введите номер телефона' 
             />
             <br/>
-            <Button onClick={addInputText}>Создать</Button>
+            <Button 
+                mode='fill' 
+                disabled={name == "" || phone == ""}
+                onClick={addInputText}
+            >
+                Создать
+            </Button>
         </form>
 	);
 }

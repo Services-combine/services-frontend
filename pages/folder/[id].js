@@ -262,7 +262,7 @@ const Folder = ({folders, accounts, countAccounts, dataFolder, pathHash, folders
 
                 {accounts.length !== 0 &&
                     <Button mode='fill' onClick={() => setModalLaunch(true)}>
-                        <p className={styles.action_item}>
+                        <p className={styles.action__item}>
                             <BsFillPlayFill className={styles.action__icon}/> 
                             Запустить
                         </p>
@@ -270,63 +270,63 @@ const Folder = ({folders, accounts, countAccounts, dataFolder, pathHash, folders
                 }
 
                 <Button mode='fill' onClick={() => setModalMessage(true)}>
-					<p className={styles.action_item}>
+					<p className={styles.action__item}>
 						<TbMessageCircle className={styles.action__icon}/> 
 						Сообщение
 					</p>
 				</Button>
 
                 <Button mode='fill' onClick={() => setModalGroups(true)}>
-					<p className={styles.action_item}>
+					<p className={styles.action__item}>
 						<MdGroups className={styles.action__icon}/> 
 						Группы
 					</p>
 				</Button>
 
                 <Button mode='fill' onClick={() => setModalUsernames(true)}>
-					<p className={styles.action_item}>
+					<p className={styles.action__item}>
 						<FaUserEdit className={styles.action__icon}/> 
 						Username
 					</p>
 				</Button>
 
                 <Button mode='fill' onClick={() => setModalChat(true)}>
-					<p className={styles.action_item}>
+					<p className={styles.action__item}>
 						<AiFillWechat className={styles.action__icon}/> 
 						Чат
 					</p>
 				</Button>
 
                 <Button mode='fill' onClick={() => setModalCreateFolder(true)}>
-					<p className={styles.action_item}>
+					<p className={styles.action__item}>
 						<MdCreateNewFolder className={styles.action__icon}/> 
 						Папка
 					</p>
 				</Button>
 
                 <Button mode='fill' onClick={() => setModaleCreateAccount(true)}>
-					<p className={styles.action_item}>
+					<p className={styles.action__item}>
 						<FiUserPlus className={styles.action__icon}/> 
 						Аккаунт
 					</p>
 				</Button>
 
                 <Button mode='fill' onClick={() => setModalMove(true)}>
-					<p className={styles.action_item}>
+					<p className={styles.action__item}>
 						<FiMove className={styles.action__icon}/> 
 						Переместить
 					</p>
 				</Button>
 
                 <Button mode='fill' onClick={() => setModalRename(true)}>
-					<p className={styles.action_item}>
+					<p className={styles.action__item}>
 						<MdOutlineDriveFileRenameOutline className={styles.action__icon}/> 
 						Переименовать
 					</p>
 				</Button>
 
                 <Button mode='fill' onClick={geterateInterval}>
-					<p className={styles.action_item}>
+					<p className={styles.action__item}>
 						<FaRandom className={styles.action__icon}/> 
 						Сгенерировать
 					</p>
@@ -340,8 +340,8 @@ const Folder = ({folders, accounts, countAccounts, dataFolder, pathHash, folders
             {accounts.length === 0
 				? <h4 className={styles.notification}>У вас пока нет аккаунтов</h4>
 				: <AccountsList 
+					accounts={accounts} 
                     remove={deleteAccount} 
-                    accounts={accounts} 
                     sendCodeParsing={sendCodeParsing} 
                     parsingApi={parsingApi} 
                     sendCodeSession={sendCodeSession} 

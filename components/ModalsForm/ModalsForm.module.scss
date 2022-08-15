@@ -1,8 +1,44 @@
-.form__input {
-    margin: 15px 0 5px 0;
+@import "../../styles/vars";
 
-    Button {
-        margin-top: 10px;
+.form__input {
+    margin: 15px 0 0 0;
+
+    Button, Input, Textarea, Select {
+        margin-bottom: 10px;
+    }
+
+    .button__clean {
+        background-color: red;
+        display: inline-block;
+        padding: 10px 15px;
+        font-size: 15px;
+        font-weight: bold;
+        border: none;
+        border-radius: $app-radius;
+        margin-left: 5px;
+        color: $app-white-color;
+    }
+
+    .button__clean:hover {
+        opacity: 0.6;
+    }
+
+    .launch__actions {
+        width: 300px;
+
+        Button {
+            margin: 5px;
+
+            .action__item {
+                display: flex;
+                align-items: center;
+    
+                .action__icon {
+                    font-size: 19px;
+                    margin-right: 2px;
+                }
+            }
+        }
     }
 }
 

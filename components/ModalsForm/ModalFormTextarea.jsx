@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import styles from './ModalsForm.module.scss'
 import { Button } from '../UI/Button';
 import { Textarea } from '../UI/Textarea';
 
@@ -39,14 +40,15 @@ export const ModalFormTextarea = ({create, mode, buttonText, placeholderText, de
     }
 
     return (
-        <form>
+        <form className={styles.form__input}>
             <Textarea 
                 value={text} 
                 onChange={e => setText(e.target.value)}
                 placeholder={placeholderText}
             />
-            <Button onClick={addTextareaText}>{buttonText}</Button>
-            <Button style={{background: "rgb(233, 62, 62)", color: "#dedede", marginLeft: 5}} onClick={cleanData}>Очистить</Button>
+            <br/>
+            <Button mode='fill' onClick={addTextareaText}>{buttonText}</Button>
+            <Button mode='outline' className={styles.button__clean} onClick={cleanData}>Очистить</Button>
         </form>
 	);
 }

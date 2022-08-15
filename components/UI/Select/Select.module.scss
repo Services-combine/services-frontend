@@ -1,9 +1,11 @@
+@import "../../../styles/vars";
+
 .Select {
     width: 100%;
     border: none;
-    border-radius: 6px;
-    padding: 9px;
+    border-radius: $app-radius;
+    padding: 10px 15px;
     display: block;
-    margin: 15px 0 10px 0;
-    background: #dedede;
+    background: $app-background-color;
+    outline: none;
 }

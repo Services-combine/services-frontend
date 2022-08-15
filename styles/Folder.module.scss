@@ -1,13 +1,12 @@
+@import "./vars";
+
 .folder {
 
     .actions {
-        position: relative;
-        z-index: 2;
-
         Button {
             margin: 5px;
 
-            .action_item {
+            .action__item {
                 display: flex;
                 align-items: center;
     
@@ -20,7 +19,7 @@
 
         .delete {
             background-color: red;
-            border-radius: 10px;
+            border-radius: $app-radius;
             border: none;
             padding: 7px 12px;
             float: left;
