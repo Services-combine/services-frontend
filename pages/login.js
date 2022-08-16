@@ -11,7 +11,7 @@ import { Api } from '../utils/api';
 import { LoginFormSchema } from "../utils/validate/authValidation";
 import { Button } from '../components/UI/Button'
 import { FormField } from '../components/UI/FormField'
-import { Snackbar } from "../components/UI/Snackbar";
+import Snackbar from "../components/UI/Snackbar";
 
 
 export default function Login() {
@@ -33,8 +33,12 @@ export default function Login() {
             //dispatch(setUserData(response.data));
             router.push("/");
         } catch (e) {
-            if (e.response)
+            if (e.response !== undefined && e.response.data  !== undefined && e.response.data.message  !== undefined) {
                 snackbarRef.current.show(e.response.data.message, 'error');
+            }
+            else {
+                snackbarRef.current.show('Ошибка подключения к серверу', 'error');
+            }
         }
 	}
 

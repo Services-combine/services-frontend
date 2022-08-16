@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import styles from "../styles/Services.module.scss";
 
 
-export const Services = () => {
+const Services = () => {
     return (
         <div className={styles.services}>
             <Head>
@@ -42,3 +42,5 @@ export const Services = () => {
         </div>
     );
 }
+
+export default Services;

@@ -16,16 +16,19 @@ export const ModalFormTextarea = ({create, mode, buttonText, placeholderText, de
                     }, "")
                     setText(stringData);
                 }
-                else
-                    setText(defaultData);
             }
-            else 
+            else {
                 setText(defaultData);
+            }
         }
-    }, [defaultData])
+    }, [defaultData, mode])
 
     const addTextareaText = (e) => {
 		e.preventDefault();
+
+        if (mode === 'changeUsernames') {
+            text = text.replaceAll("@", "")
+        }
 
 		const newTextarea = {
             text, id: Date.now(), mode

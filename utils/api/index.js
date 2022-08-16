@@ -12,7 +12,7 @@ export const Api = (ctx) => {
         withCredentials: true,
         baseURL: process.env.API_URL,
         headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`
         },
     });
 

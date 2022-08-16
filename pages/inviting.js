@@ -3,7 +3,7 @@ import { useState, useRef } from 'react'
 import { useRouter } from 'next/router'
 import styles from "../styles/Inviting.module.scss";
 import { Api } from '../utils/api';
-import { Snackbar } from "../components/UI/Snackbar";
+import Snackbar from "../components/UI/Snackbar";
 import { FoldersList } from '../components/FoldersList';
 import { Button } from '../components/UI/Button';
 import { Modal } from '../components/UI/Modal';

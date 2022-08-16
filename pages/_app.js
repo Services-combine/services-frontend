@@ -40,10 +40,10 @@ App.getInitialProps = wrapper.getInitialAppProps(store => async ({ctx, Component
         }
 	} catch (e) {
 		if (ctx.asPath !== '/login') {
-            ctx.res.writeHead(302, {
-                Location: '/login'
-            });
-            ctx.res.end();
+			ctx.res.writeHead(302, {
+				Location: '/login'
+			});
+			ctx.res.end();
         }
 	}
 

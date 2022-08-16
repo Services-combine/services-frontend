@@ -3,7 +3,7 @@ import classes from './Snackbar.module.scss'
 import { GrFormClose } from 'react-icons/gr'
 
 
-export const Snackbar = forwardRef((props, ref) => {
+const Snackbar = forwardRef((props, ref) => {
     const [show, setShow] = useState(false);
     const timeout = 5000;
     const [message, setMessage] = useState('');
@@ -32,3 +32,6 @@ export const Snackbar = forwardRef((props, ref) => {
             </div>
     );
 })
+
+Snackbar.displayName = 'Snackbar';
+export default Snackbar;

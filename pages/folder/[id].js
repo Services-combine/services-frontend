@@ -12,7 +12,7 @@ import { ModalLaunch } from '../../components/ModalsForm/ModalLaunch';
 import { ModalFormSelect } from '../../components/ModalsForm/ModalFormSelect';
 import { FoldersList } from '../../components/FoldersList';
 import { AccountsList } from '../../components/AccountsList';
-import { Snackbar } from "../../components/UI/Snackbar";
+import Snackbar from "../../components/UI/Snackbar";
 import { NavigationBar } from "../../components/NavigationBar";
 import { CountAccounts } from "../../components/CountAccounts";
 import { TbMessageCircle } from "react-icons/tb"
@@ -37,6 +37,11 @@ const Folder = ({folders, accounts, accountsMove, countAccounts, dataFolder, pat
 	const [modalMove, setModalMove] = useState(false);
 	const [modalCreateAccount, setModaleCreateAccount] = useState(false);
 	const [modalLaunch, setModalLaunch] = useState(false);
+
+	const showSnackbar = (message, type) => {
+		if (snackbarRef.current)
+	        snackbarRef.current.show(message, type);
+    }
 
 	if (error) {
         showSnackbar(error, 'error')
@@ -243,10 +248,6 @@ const Folder = ({folders, accounts, accountsMove, countAccounts, dataFolder, pat
 			dataFolder.mailing_groups = true
 	}
 
-    const showSnackbar = (message, type) => {
-        snackbarRef.current.show(message, type);
-    }
-
     const refreshData = () => {
 		router.replace(router.asPath);
 	}
@@ -439,7 +440,7 @@ export const getServerSideProps = async (ctx) => {
     try {
         const response = await Api(ctx).inviting.getFolderById(ctx.params.id);
         const foldersMove = await Api(ctx).inviting.getFoldedrsMove(ctx.params.id)
-		console.log(response)
+		
         return {
             props: {
                 folders: response.data.folders ? response.data.folders : [],
