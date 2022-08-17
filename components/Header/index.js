@@ -8,30 +8,26 @@ import { selectUserData } from '../../redux/slices/user';
 import { useAppDispatch } from '../../redux/hooks';
 import { setUserData } from '../../redux/slices/user';
 import styles from "./Header.module.scss";
+import { Button } from '../UI/Button';
 import { AiOutlineUser } from "react-icons/ai"
 import { BiExit } from "react-icons/bi"
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 
 
 export const Header = () => {
     const dispatch = useAppDispatch();
     const userData = useAppSelector(selectUserData);
     const router = useRouter();
-
-    const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    const [profileMenuActive, setProfileMenuActive] = useState(false);
 
     async function logout() {
         destroyCookie(null, 'token')
         dispatch(setUserData(null));
         router.push("/login")
+    }
+
+    const handleClickLogout = () => {
+        logout()
+        setProfileMenuActive(false)
     }
 
     return (
@@ -45,29 +41,24 @@ export const Header = () => {
 
                 <div className={clsx(styles.header__right, 'd-flex align-center')}>
                     {userData &&
-                        <>
+                        <div className={styles.profile}>
                             <div
-                                onClick={handleClick}
-                                className={styles.dropdown__btn}
+                                onClick={() => setProfileMenuActive(!profileMenuActive)}
+                                className={styles.profile__btn}
                             >
                                 <div className={styles.profile__icon}>
                                     <AiOutlineUser/>
                                 </div>
                             </div>
-                            <Menu
-                                anchorEl={anchorEl}
-                                open={open}
-                                onClose={handleClose}
-                                className={styles.actions}
-                            >
-                                <MenuItem 
-                                    className={styles.action__item} 
-                                    onClick={logout}
-                                >
-                                    <BiExit className={styles.action__icon} /> Выйти
-                                </MenuItem>
-                            </Menu>
-                        </>
+
+                            <div className={profileMenuActive ? clsx(styles.profile__menu, styles.active) : styles.profile__menu}>
+                                <div className={styles.profile__actions}>
+                                    <div className={styles.profile__item} onClick={handleClickLogout}>
+                                        <BiExit className={styles.profile__icon} /> Выйти
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     }
                 </div>
             </div>

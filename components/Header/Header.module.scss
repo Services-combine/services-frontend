@@ -23,71 +23,79 @@
         }
 
         .header__right {
-            .dropdown__btn {
-                background-color: $app-white-color;
-                box-shadow: none;
-                display: flex;
-                align-items: center;
-                padding: 5px 15px;
-                font-weight: bold;
-                border: none;
-                outline: none;
-
-                .profile__icon {
-                    background-color: $app-blue-color;
-                    border-radius: 100px;
-                    cursor: pointer;
-                    color: $app-white-color;
-                    font-weight: bold;
-                    font-size: 20px;
+            .profile {
+                .profile__btn {
+                    background-color: $app-white-color;
+                    box-shadow: none;
                     display: flex;
                     align-items: center;
-                    padding: 12px;
+                    padding: 5px 15px;
+                    font-weight: bold;
+                    border: none;
+                    outline: none;
+    
+                    .profile__icon {
+                        background-color: $app-blue-color;
+                        border-radius: 100px;
+                        cursor: pointer;
+                        color: $app-white-color;
+                        font-weight: bold;
+                        font-size: 20px;
+                        display: flex;
+                        align-items: center;
+                        padding: 12px;
+                    }
                 }
-            }
 
-            .dropdown__btn::after {
-                content: none;
-            }
+                .profile__btn::after {
+                    content: none;
+                }
+    
+                .profile__btn:hover {
+                    opacity: 0.9;
+                }
 
-            .dropdown__btn:hover {
-                opacity: 0.9;
-            }
-
-            .actions {
-                background-color: $app-white-color;
-                border: none;
-                border-radius: $app-radius;
-                margin-top: 10px;
-                padding: 0 7px;
-                -webkit-box-shadow: $app-shadow;
-                box-shadow: $app-shadow;
-                -webkit-animation: show-dropdown .25s forwards;
+                .profile__menu {
+                    display: none;
+                }
             
-                .action__item {
-                    width: 100%;
-                    border-radius: $app-radius;
-                    padding: 7px 0px;
-                    margin: 7px 0;
-                    display: flex;
-                    align-items: center;
-                    text-decoration: none;
-                    color: $app-black-color;
-                }
-                
-                .action__item:hover {
-                    background-color: $app-hover-color;
-                }
-                
-                .action__item:active {
-                    background-color: $app-background-color;
-                    color: $app-black-color;
-                }
-                
-                .action__icon {
-                    font-size: 20px;
-                    font-weight: bold;
-                    margin: 0px 7px 0px 10px;
+                .profile__menu.active {
+                    width: 150px;
+                    display: inline-block;
+                    background-color: $app-white-color;
+                    border-radius: 5px;
+                    padding: 12px 0;
+                    margin-top: 10px;
+                    text-align: left;
+                    position: absolute;
+                    z-index: 9999;
+                    box-shadow: $app-shadow;
+
+                    .profile__actions {    
+                        width: 100%;
+
+                        .profile__item {
+                            padding: 13px 0;
+                            display: flex;
+                            align-items: center;
+                            cursor: pointer;
+                        }
+                        
+                        .profile__item:hover {
+                            background-color: $app-hover-color;
+                        }
+                        
+                        .profile__item:active {
+                            background-color: $app-background-color;
+                            color: $app-black-color;
+                        }
+                        
+                        .profile__icon {
+                            font-size: 20px;
+                            font-weight: bold;
+                            margin: 0 7px 0 15px;
+                        }
+                    }
                 }
             }
         }
