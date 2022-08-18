@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import '../styles/globals.scss'
 import { Header } from '../components/Header';
 import { MainLayout } from '../components/MainLayout';
@@ -8,6 +9,8 @@ import NextNProgress from "nextjs-progressbar";
 
 
 function App({ Component, pageProps }) {
+	const router = useRouter()
+
   	return (
       	<>
 			<NextNProgress
@@ -18,11 +21,17 @@ function App({ Component, pageProps }) {
 				showOnShallow={true}
 			/>
 
-          	<Header />
-          
-			<MainLayout>
-				<Component {...pageProps} />
-			</MainLayout>
+			{router.asPath !== '/login' &&
+				<Header />
+			}
+
+			{router.asPath !== '/login'
+				? 
+				<MainLayout>
+					<Component {...pageProps} />
+				</MainLayout>
+				: <Component {...pageProps} />
+			}
       	</>
   	);
 }

@@ -12,7 +12,7 @@ export function FormField({name, label, type, ...props}) {
             name={name}
             type={type}
             label={label}
-            variant="filled"
+            variant="outlined"
             size='small'
             error={!!formState.errors[name]?.message}
             helperText={formState.errors[name]?.message}
