@@ -2,6 +2,7 @@ import axios from "axios";
 import Cookies, { parseCookies } from 'nookies';
 import { AuthApi } from "./auth";
 import { InvitingApi } from "./inviting"
+import { ChannelsApi } from "./channels"
 
 
 export const Api = (ctx) => {
@@ -18,6 +19,7 @@ export const Api = (ctx) => {
 
     return {
         auth: AuthApi(instance),
-        inviting: InvitingApi(instance)
+        inviting: InvitingApi(instance),
+        channels: ChannelsApi(instance),
     }
 };

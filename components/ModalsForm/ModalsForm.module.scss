@@ -3,6 +3,10 @@
 .form__input {
     margin: 15px 0 0 0;
 
+    Input {
+        width: 87%;
+    }
+
     Button, Input, Textarea, Select {
         margin-bottom: 10px;
     }
@@ -38,6 +42,54 @@
                     margin-right: 2px;
                 }
             }
+        }
+    }
+
+    .choose__file {
+        position: relative;
+	    display: inline-block;
+        margin-bottom: 10px;
+
+        .choose__file__name {
+            padding: 0 10px;
+            line-height: 38px;
+            text-align: left;
+            height: 40px;
+            display: block;
+            font-size: 14px;
+            float: left;
+            box-sizing: border-box;
+            width: 170px;
+            border-radius: 10px 0px 0 10px;
+            border: 1px solid #ddd;
+        }
+
+        .choose__file__title {
+            display: inline-block;
+            cursor: pointer;
+            font-size: 14px;
+            color: rgb(255 255 255);
+            border-radius: 0 10px 10px 0;
+            background-color: #419152;
+            line-height: 22px;
+            height: 40px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: none;
+            transition: background-color 0.2s;
+        }
+
+        .choose__file__title:hover {
+            opacity: 0.8;
+        }
+
+        input[type=file] {
+            position: absolute;
+            z-index: -1;
+            opacity: 0;
+            display: block;
+            width: 0;
+            height: 0;
         }
     }
 }
