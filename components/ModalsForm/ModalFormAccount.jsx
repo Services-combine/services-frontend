@@ -11,7 +11,6 @@ export const ModalFormAccount = ({account, accountsMove, folderName, closeAfterS
     const [name, setName] = useState(account.name);
     const [interval, setInterval] = useState(account.interval);
     const [folder, setFolder] = useState(account.folder);
-    console.log(accountsMove)
 
     async function saveSettings(e) {
         try {

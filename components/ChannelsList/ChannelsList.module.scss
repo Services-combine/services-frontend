@@ -1,0 +1,87 @@
+@import "../../styles/vars";
+
+.channels {
+    display: flex;
+    padding-top: 10px;
+
+    .channel {
+        width: 100%;
+        background-color: $app-white-color;
+        border-radius: $app-radius;
+        padding: 15px 20px;
+        box-shadow: $app-shadow;
+
+        .channel__data {
+            width: 100%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .channel__main__data {
+                display: inline-flex;
+                align-items: center;
+    
+                .channel__photo {
+                    border-radius: 100px;
+                }
+        
+                .channel__info {
+                    margin-left: 10px;
+        
+                    .channel__title {
+                        font-size: 16px;
+                        font-weight: 500;
+                    }
+        
+                    .channel__description {
+                        font-size: 13px;
+                        margin-top: 2px;
+                        color: gray
+                    }
+                }
+            }
+    
+            .channel__statistic {
+                margin-right: 10px;
+    
+                p {
+                    margin: 3px 0;
+                    color: gray;
+                    font-size: 13px;
+                }
+            }
+        }
+
+        .channel__actions {
+            margin-top: 10px;
+            display: flex;
+
+            .action__item {
+                display: flex;
+                align-items: center;
+                padding: 8px 9px;
+                border-radius: $app-radius;
+                margin-right: 10px;
+                background-color: $app-background-color;
+
+                .action__icon {
+                    font-size: 17px;
+                }
+            }
+
+            .action__item:hover {
+                background-color: $app-grey-color;
+            }
+
+            .action__item:hover::after {
+                content: attr(data-title);
+                position: absolute;
+                top: 29%;
+                background: $app-background-color;
+                font-size: 14px;
+                padding: 7px 10px;
+                border-radius: $app-radius;
+            }
+        }
+    }
+}

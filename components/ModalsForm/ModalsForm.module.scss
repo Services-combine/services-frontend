@@ -104,6 +104,8 @@
 
     .actions {
         margin-top: 12px;
+        display: inline-flex;
+        align-items: center;
 
         .button__cancel {
             background-color: red;
