@@ -2,6 +2,7 @@ import styles from "./ModalsForm.module.scss"
 import { Button } from '../UI/Button';
 
 export const ModalConfirmAction = ({result}) => {
+    
     const addResultAction = (action) => {
 		const newAction = {
             action, id: Date.now()

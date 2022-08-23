@@ -26,23 +26,10 @@ const Channels = ({channels, error}) => {
         showSnackbar(error, 'error')
     }
 
-	async function addChannel(data) {
-        try {
-			const formData = new FormData()
-			formData.append('channel_id', data.channelId)
-			formData.append('api_key', data.apiKey)
-			formData.append('token_file', data.tokenFile)
-			await Api().channels.addChannel(formData);
-			refreshData()
-        } catch (e) {
-			showSnackbar('Ошибка при добавлении канала', 'error')
-        }
+	const closeAfterAdd = () => {
+        setModalAddChannel(false)
+		refreshData()
     }
-
-	const getModalAdd = (data) => {
-		setModalAddChannel(false);
-		addChannel(data);
-	}
 
 	const refreshData = () => {
 		router.replace(router.asPath);
@@ -72,7 +59,7 @@ const Channels = ({channels, error}) => {
 			}
 
 			<Modal title='Добавление канала' visible={modalAddChannel} setVisible={setModalAddChannel}>
-                <ModalFormCreateChannel create={getModalAdd}/>
+                <ModalFormCreateChannel closeAfterAdd={closeAfterAdd}/>
             </Modal>
 		</div>
 	);
@@ -84,7 +71,7 @@ export const getServerSideProps = async (ctx) => {
 
         return {
             props: {
-                channels: response.data,
+                channels: response.data
             },
         }
     } catch (e) {

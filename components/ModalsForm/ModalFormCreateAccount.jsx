@@ -1,22 +1,29 @@
+import { useRouter } from 'next/router';
 import { useState } from 'react'
 import styles from './ModalsForm.module.scss'
+import { Api } from '../../utils/api';
 import { Input } from '../UI/Input';
 import { Button } from '../UI/Button';
 
-export const ModalFormCreateAccount = ({create, mode}) => {
+export const ModalFormCreateAccount = ({closeAfterCreate}) => {
+    const router = useRouter();
+    const [isError, setIsError] = useState(null);
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
 
-    const addInputText = (e) => {
-		e.preventDefault()
+    async function createAccount(e) {
+        try {
+            e.preventDefault()
+            await Api().inviting.createAccount(router.query.id, name, phone);
 
-		const newInput = {
-            name, phone, id: Date.now(), mode
+            setName('')
+            setPhone('')
+            setIsError(null)
+			closeAfterCreate()
+        } catch (e) {
+			setIsError('Ошибка при создании аккаунта')
         }
-        create(newInput)
-		setName('')
-        setPhone('')
-	}
+    }
 
     return (
         <form className={styles.form__input}>
@@ -34,10 +41,15 @@ export const ModalFormCreateAccount = ({create, mode}) => {
                 placeholder='Введите номер телефона' 
             />
             <br/>
+
+            {isError &&
+                <p className={styles.error}>{isError}</p>
+            }
+
             <Button 
                 mode='fill' 
                 disabled={name == "" || phone == ""}
-                onClick={addInputText}
+                onClick={createAccount}
             >
                 Создать
             </Button>

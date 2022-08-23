@@ -125,15 +125,6 @@ const Folder = ({folders, accounts, accountsMove, countAccounts, dataFolder, pat
 		}
 	}
 
-	async function createAccount(name, phone) {
-		try {
-			await Api().inviting.createAccount(router.query.id, name, phone);
-			refreshData()
-		} catch (e) {
-			showSnackbar('Ошибка при создании аккаунта' ,'error')
-		}
-	}
-
 	async function deleteAccount(account) {
         try {
 			await Api().inviting.deleteAccount(router.query.id, account.id);
@@ -224,10 +215,6 @@ const Folder = ({folders, accounts, accountsMove, countAccounts, dataFolder, pat
 			setModalGroups(false);
 			changeGroups(getInput.text);
 		}
-		else if (getInput.mode === "createAccount") {
-			setModaleCreateAccount(false);
-			createAccount(getInput.name, getInput.phone);
-		}
 	}
 
 	const getModalSelect = (getSelect) => {
@@ -247,6 +234,11 @@ const Folder = ({folders, accounts, accountsMove, countAccounts, dataFolder, pat
 		else if (mode === 'mailing_groups')
 			dataFolder.mailing_groups = true
 	}
+
+	const closeAfterCreate = () => {
+        setModaleCreateAccount(false)
+		refreshData()
+    }
 
     const refreshData = () => {
 		router.replace(router.asPath);
@@ -424,7 +416,7 @@ const Folder = ({folders, accounts, accountsMove, countAccounts, dataFolder, pat
             }
 
 			<Modal title="Создание аккаунта" visible={modalCreateAccount} setVisible={setModaleCreateAccount}>
-                <ModalFormCreateAccount create={getModalInput} mode="createAccount"/>
+                <ModalFormCreateAccount closeAfterCreate={closeAfterCreate} />
             </Modal>
 
 			<Modal title="Выберите действие" visible={modalLaunch} setVisible={setModalLaunch}>

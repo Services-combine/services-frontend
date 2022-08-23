@@ -1,23 +1,33 @@
 import { useState } from 'react'
 import styles from './ModalsForm.module.scss'
+import { Api } from '../../utils/api';
 import { Input } from '../UI/Input';
 import { Button } from '../UI/Button';
 
-export const ModalFormCreateChannel = ({create}) => {
+export const ModalFormCreateChannel = ({closeAfterAdd}) => {
+    const [isError, setIsError] = useState(null);
     const [channelId, setChannelId] = useState('');
     const [apiKey, setApiKey] = useState('');
     const [tokenFile, setTokenFile] = useState(null);
 
+    async function addChannel(e) {
+        try {
+            e.preventDefault()
+			const formData = new FormData()
 
-    const addChannel = (e) => {
-        e.preventDefault()
-        const newInput = {
-            channelId, apiKey, tokenFile, id: Date.now()
+			formData.append('channel_id', channelId)
+			formData.append('api_key', apiKey)
+			formData.append('token_file', tokenFile)
+			await Api().channels.addChannel(formData);
+
+            setChannelId('')
+            setApiKey('')
+            setTokenFile(null)
+            setIsError(null)
+			closeAfterAdd()
+        } catch (e) {
+			setIsError('Ошибка при добавлении канала')
         }
-        create(newInput)
-		setChannelId('')
-        setApiKey('')
-        setTokenFile(null)
     }
 
     const chooseFile = (e) => {
@@ -55,6 +65,10 @@ export const ModalFormCreateChannel = ({create}) => {
                 <span className={styles.choose__file__title}>Выбрать</span>
             </label>
             <br/>
+
+            {isError &&
+                <p className={styles.error}>{isError}</p>
+            }
 
             <Button 
                 mode='fill' 

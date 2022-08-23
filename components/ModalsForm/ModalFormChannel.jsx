@@ -3,21 +3,27 @@ import styles from './ModalsForm.module.scss';
 import { Api } from '../../utils/api';
 import { Input } from '../UI/Input';
 import { Button } from '../UI/Button';
-import { Select } from '../UI/Select';
-import { FaRandom } from "react-icons/fa"
 
 
-export const ModalFormChannel = ({id, comment, count_commented_videos, closeAfterSave}) => {
-    const [commentText, setCommentText] = useState(comment);
-    const [countVideos, setCountVideos] = useState(count_commented_videos);
+export const ModalFormChannel = ({channel, closeAfterSave}) => {
+    const [isError, setIsError] = useState(null);
+    const [commentText, setCommentText] = useState(channel.comment);
+    const [countVideos, setCountVideos] = useState(channel.count_commented_videos);
 
     async function saveSettings(e) {
         try {
             e.preventDefault();
-			await Api().channels.editChannel(id, commentText, countVideos);
-            closeAfterSave()
+
+            if (Number(countVideos) > channel.video_count) {
+                setIsError("Количество комментируемых видео не может быть больше количества всех видео на канале")
+            }
+            else {
+                await Api().channels.editChannel(channel.id, commentText, countVideos);
+                closeAfterSave()
+                setIsError(null)
+            }
 		} catch (error) {
-			console.log(error)
+            setIsError("Ошибка при сохранении настроек")
 		}
     }
 
@@ -25,11 +31,11 @@ export const ModalFormChannel = ({id, comment, count_commented_videos, closeAfte
         <form className={styles.form__channel}>
             <div className={styles.comment__channel}>
                 <h6 className={styles.title}>Комментарий</h6>
-                <Input 
-                    value={commentText}
+                <textarea 
+                    className={styles.comment}
+                    value={commentText} 
                     onChange={e => setCommentText(e.target.value)}
-                    type='text' 
-                    placeholder='Введите комментарий' 
+                    placeholder="Введите комментарий"
                 />
             </div>
 
@@ -41,6 +47,10 @@ export const ModalFormChannel = ({id, comment, count_commented_videos, closeAfte
                     type='number'
                 />
             </div>
+
+            {isError &&
+                <p className={styles.error}>{isError}</p>
+            }
 
             <Button mode='fill' onClick={saveSettings}>Сохранить</Button>
         </form>

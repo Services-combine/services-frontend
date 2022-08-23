@@ -5,7 +5,7 @@ export const ChannelsList = ({channels}) => {
     return (
         <div className={styles.channels}>
             {channels.map(channel => 
-                <ChannelItem channel={channel} key={channel.channel_id} />
+                <ChannelItem channel={channel} key={channel.id} />
             )}
         </div>
     );

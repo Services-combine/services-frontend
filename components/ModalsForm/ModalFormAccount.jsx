@@ -8,6 +8,7 @@ import { FaRandom } from "react-icons/fa"
 
 
 export const ModalFormAccount = ({account, accountsMove, folderName, closeAfterSave}) => {
+    const [isError, setIsError] = useState(null);
     const [name, setName] = useState(account.name);
     const [interval, setInterval] = useState(account.interval);
     const [folder, setFolder] = useState(account.folder);
@@ -16,9 +17,10 @@ export const ModalFormAccount = ({account, accountsMove, folderName, closeAfterS
         try {
             e.preventDefault();
 			await Api().inviting.saveSettingsAccount(account.folder, account.id, name, interval, folder);
+            setIsError(null)
             closeAfterSave()
-		} catch (error) {
-			console.log(error)
+		} catch (e) {
+            setIsError("Ошибка при сохранении настроек")
 		}
     }
 
@@ -64,6 +66,10 @@ export const ModalFormAccount = ({account, accountsMove, folderName, closeAfterS
                 value={folder} 
                 onChange={folder => setFolder(folder)}
             />
+
+            {isError &&
+                <p className={styles.error}>{isError}</p>
+            }
 
             <Button mode='fill' onClick={saveSettings}>Сохранить</Button>
         </form>

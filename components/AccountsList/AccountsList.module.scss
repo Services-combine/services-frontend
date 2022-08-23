@@ -10,7 +10,6 @@
         border-radius: $app-radius;
         padding: 12px 15px;
         margin-bottom: 12px;
-        width: 100%;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -98,5 +97,9 @@
                 opacity: 0.6;
             }
         }
+    }
+
+    .alert:hover {
+        box-shadow: $app-shadow-hover;
     }
 }

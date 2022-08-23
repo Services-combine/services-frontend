@@ -27,6 +27,6 @@ export const ChannelsApi = (instance) => ({
     },
 
     async editChannel(id, comment, count_commented_videos) {
-        return instance.post(`/auth/user/channels/${id}/edit`, {comment: comment, count_commented_videos: count_commented_videos})
+        return instance.post(`/auth/user/channels/${id}/edit`, {comment: comment, count_commented_videos: Number(count_commented_videos)})
     },
 })
