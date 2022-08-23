@@ -26,7 +26,20 @@ export const ModalFormCreateChannel = ({closeAfterAdd}) => {
             setIsError(null)
 			closeAfterAdd()
         } catch (e) {
-			setIsError('Ошибка при добавлении канала')
+            console.log(e)
+            if (e.response.data) {
+                if (
+                    e.response.data.message === "Не верный api key" ||
+                    e.response.data.message === "Ошибка при скачивании токен файла" || 
+                    e.response.data.message === "Не верный channel id" ||
+                    e.response.data.message === "Такое channel id уже используется"
+                )
+                    setIsError(e.response.data.message)
+                else
+                    setIsError('Ошибка при добавлении канала')
+            }
+            else
+                setIsError('Ошибка при добавлении канала')
         }
     }
 
@@ -42,7 +55,7 @@ export const ModalFormCreateChannel = ({closeAfterAdd}) => {
                 value={channelId} 
                 onChange={e => setChannelId(e.target.value)}
                 type='text' 
-                placeholder='Введите channelId' 
+                placeholder='Введите channel id' 
             />
             <br/>
 
@@ -50,7 +63,7 @@ export const ModalFormCreateChannel = ({closeAfterAdd}) => {
                 value={apiKey} 
                 onChange={e => setApiKey(e.target.value)}
                 type='text' 
-                placeholder='Введите apiKey' 
+                placeholder='Введите api key' 
             />
             <br/>
 

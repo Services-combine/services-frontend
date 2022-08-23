@@ -20,8 +20,13 @@ export const ChannelItem = (props) => {
 
     async function launch() {
         try {
-            await Api().channels.launchChannel(props.channel.id);
-            refreshData()
+            if (!props.channel.launch) {
+                await Api().channels.launchChannel(props.channel.id);
+                refreshData()
+            }
+            else {
+                showSnackbar('Канал запущен, все действия запрещены', 'success')
+            }
         } catch (e) {
 			showSnackbar('Ошибка при запуске канала', 'error')
         }
@@ -29,8 +34,13 @@ export const ChannelItem = (props) => {
 
     async function update() {
         try {
-            await Api().channels.updateChannel(props.channel.id, props.channel.channel_id, props.channel.api_key);
-            refreshData()
+            if (!props.channel.launch) {
+                await Api().channels.updateChannel(props.channel.id, props.channel.channel_id, props.channel.api_key);
+                refreshData()
+            }
+            else {
+                showSnackbar('Канал запущен, все действия запрещены', 'success')
+            }
         } catch (e) {
 			showSnackbar('Ошибка при обновлении канала', 'error')
         }
@@ -42,6 +52,24 @@ export const ChannelItem = (props) => {
             refreshData()
         } catch (e) {
 			showSnackbar('Ошибка при удалении канала', 'error')
+        }
+    }
+
+    const showModalEdit = () => {
+        if (!props.channel.launch) {
+            setModalChannel(true)
+        }
+        else {
+            showSnackbar('Канал запущен, все действия запрещены', 'success')
+        }
+    }
+    
+    const showModalAction = () => {
+        if (!props.channel.launch) {
+            setModalDelete(true)
+        }
+        else {
+            showSnackbar('Канал запущен, все действия запрещены', 'success')
         }
     }
 
@@ -94,7 +122,7 @@ export const ChannelItem = (props) => {
 
                 <div 
                     className={clsx(styles.action__item, props.channel.launch && styles.disable)}
-                    onClick={() => setModalChannel(true)}
+                    onClick={showModalEdit}
                 >
                     <AiOutlineEdit className={styles.action__icon} />
                 </div>
@@ -108,7 +136,7 @@ export const ChannelItem = (props) => {
 
                 <div 
                     className={clsx(styles.action__item, styles.delete, props.channel.launch && styles.disable)}
-                    onClick={() => setModalDelete(true)}
+                    onClick={showModalAction}
                 >
                     <AiOutlineDelete className={styles.action__icon} />
                 </div>
