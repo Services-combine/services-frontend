@@ -1,8 +1,8 @@
 @import "../../styles/vars";
 
 .folders {
-    display: flex;
     padding-top: 15px;
+    display: flex;
 
     .folder {
         border: none;
@@ -10,14 +10,13 @@
         text-align: center;
         width: 100px;
         height: 100px;
-        display: block;
-        text-decoration: none;
         overflow: hidden;
+        display: inline-block;
     
         .folder__icon {
             font-size: 50px;
             margin-top: 7px;
-            color: $app-grey-color
+            color: $app-grey-color;
         }
         
         .folder__name {
@@ -25,9 +24,6 @@
             word-wrap: break-word; 
             padding: 0px 5px;
             color: #000;
-        }
-        
-        .folder__name:hover {
             cursor: pointer;
         }
     }

@@ -14,8 +14,8 @@ export const ChannelsApi = (instance) => ({
         return instance.post('/auth/user/channels/add', formData, config);
     },
 
-    async launchChannel(id) {
-        return instance.get(`/auth/user/channels/${id}/launch`)
+    async launchChannel(id, channel_id) {
+        return instance.post(`/auth/user/channels/${id}/launch`, {channel_id: channel_id})
     },
 
     async updateChannel(id, channel_id, api_key) {

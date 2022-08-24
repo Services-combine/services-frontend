@@ -1,12 +1,13 @@
 import styles from './FoldersList.module.scss';
 import { FolderItem } from './FolderItem';
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 
 export const FoldersList = ({folders}) => {
     return (
-        <div className={styles.folders}>
+        <ButtonToolbar className={styles.folders}>
             {folders.map(folder => 
                 <FolderItem folder={folder} key={folder.id} />
             )}
-        </div>
+        </ButtonToolbar>
     );
 };

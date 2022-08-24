@@ -21,14 +21,24 @@ export const ChannelItem = (props) => {
     async function launch() {
         try {
             if (!props.channel.launch) {
-                await Api().channels.launchChannel(props.channel.id);
-                refreshData()
+                if (props.channel.comment !== "" && props.channel.count_commented_videos > 0) {
+                    await Api().channels.launchChannel(props.channel.id, props.channel.channel_id);
+                    refreshData()
+                }
+                else {
+                    alert("Для начала заполните данных для проставления комментариев")
+                    //showSnackbar('Для начала заполните данных для проставления комментариев', 'error')
+                }
             }
             else {
                 showSnackbar('Канал запущен, все действия запрещены', 'success')
             }
         } catch (e) {
-			showSnackbar('Ошибка при запуске канала', 'error')
+            if (e.code === "ERR_NETWORK") {
+                refreshData()
+            }
+            else
+	    		showSnackbar('Ошибка при запуске канала', 'error')
         }
     }
 
@@ -82,6 +92,7 @@ export const ChannelItem = (props) => {
 
     const closeAfterSave = () => {
         setModalChannel(false)
+        refreshData()
     }
 
     const showSnackbar = (message, type) => {

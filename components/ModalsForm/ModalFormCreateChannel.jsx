@@ -30,13 +30,21 @@ export const ModalFormCreateChannel = ({closeAfterAdd}) => {
             if (e.response.data) {
                 if (
                     e.response.data.message === "Не верный api key" ||
-                    e.response.data.message === "Ошибка при скачивании токен файла" || 
+                    e.response.data.message === "Ошибка при скачивании токена приложения" || 
                     e.response.data.message === "Не верный channel id" ||
-                    e.response.data.message === "Такое channel id уже используется"
+                    e.response.data.message === "Такое channel id уже используется" ||
+                    e.response.data.message === "Неудалось создать токен пользователя"
                 )
                     setIsError(e.response.data.message)
                 else
                     setIsError('Ошибка при добавлении канала')
+            }
+            else if (e.code === "ERR_NETWORK") {
+                setChannelId('')
+                setApiKey('')
+                setTokenFile(null)
+                setIsError(null)
+                closeAfterAdd()
             }
             else
                 setIsError('Ошибка при добавлении канала')
