@@ -27,6 +27,10 @@ export const ChannelsApi = (instance) => ({
     },
 
     async editChannel(id, comment, count_commented_videos) {
-        return instance.post(`/auth/user/channels/${id}/edit`, {comment: comment, count_commented_videos: Number(count_commented_videos)})
+        return instance.post(`/auth/user/channels/${id}/edit-channel`, {comment: comment, count_commented_videos: Number(count_commented_videos)})
+    },
+
+    async editProxy(id, ip, port, login, password) {
+        return instance.post(`/auth/user/channels/${id}/edit-proxy`, {ip_proxy: ip, port_proxy: port, login_proxy: login, password_proxy: password})
     },
 })

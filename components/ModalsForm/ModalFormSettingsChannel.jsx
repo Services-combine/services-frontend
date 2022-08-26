@@ -5,7 +5,7 @@ import { Input } from '../UI/Input';
 import { Button } from '../UI/Button';
 
 
-export const ModalFormChannel = ({channel, closeAfterSave}) => {
+export const ModalFormSettingsChannel = ({channel, closeAfterSave}) => {
     const [isError, setIsError] = useState(null);
     const [commentText, setCommentText] = useState(channel.comment);
     const [countVideos, setCountVideos] = useState(channel.count_commented_videos);
@@ -19,7 +19,7 @@ export const ModalFormChannel = ({channel, closeAfterSave}) => {
             }
             else {
                 await Api().channels.editChannel(channel.id, commentText, countVideos);
-                closeAfterSave()
+                closeAfterSave("settings_channel")
                 setIsError(null)
             }
 		} catch (error) {

@@ -5,17 +5,20 @@ import styles from './ChannelsList.module.scss';
 import { Api } from '../../utils/api';
 import { Modal } from '../UI/Modal';
 import { ModalConfirmAction } from '../ModalsForm/ModalConfirmAction';
-import { ModalFormChannel } from '../ModalsForm/ModalFormChannel';
+import { ModalFormSettingsChannel } from '../ModalsForm/ModalFormSettingsChannel';
+import { ModalFormSettingsProxy } from '../ModalsForm/ModalFormSettingsProxy';
 import { VscDebugStart } from 'react-icons/vsc'
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai'
 import { BiRefresh } from 'react-icons/bi'
+import { TbPlugConnected } from 'react-icons/tb'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 
 export const ChannelItem = (props) => {
     const snackbarRef = useRef(null);
     const router = useRouter();
     const [modalDelete, setModalDelete] = useState(false);
-    const [modalChannel, setModalChannel] = useState(false);
+    const [modalSettingsChannel, setModalSettingsChannel] = useState(false);
+    const [modalConfigureProxy, setModalConfigureProxy] = useState(false);
     const defaultPhoto = "https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
 
     async function launch() {
@@ -65,13 +68,18 @@ export const ChannelItem = (props) => {
         }
     }
 
-    const showModalEdit = () => {
-        if (!props.channel.launch) {
-            setModalChannel(true)
-        }
-        else {
+    const showModalSettingsChannel = () => {
+        if (!props.channel.launch)
+            setModalSettingsChannel(true)
+        else
             showSnackbar('Канал запущен, все действия запрещены', 'success')
-        }
+    }
+
+    const showModalSettingsProxy = () => {
+        if (!props.channel.launch)
+            setModalConfigureProxy(true)
+        else
+            showSnackbar('Канал запущен, все действия запрещены', 'success')
     }
     
     const showModalAction = () => {
@@ -90,8 +98,12 @@ export const ChannelItem = (props) => {
         }
     }
 
-    const closeAfterSave = () => {
-        setModalChannel(false)
+    const closeAfterSave = (mode) => {
+        if (mode === "settings_channel")
+            setModalSettingsChannel(false)
+        else if (mode === "settings_proxy")
+            setModalConfigureProxy(false)
+
         refreshData()
     }
 
@@ -133,9 +145,16 @@ export const ChannelItem = (props) => {
 
                 <div 
                     className={clsx(styles.action__item, props.channel.launch && styles.disable)}
-                    onClick={showModalEdit}
+                    onClick={showModalSettingsChannel}
                 >
                     <AiOutlineEdit className={styles.action__icon} />
+                </div>
+
+                <div 
+                    className={clsx(styles.action__item, props.channel.launch && styles.disable)}
+                    onClick={showModalSettingsProxy}
+                >
+                    <TbPlugConnected className={styles.action__icon} />
                 </div>
 
                 <div 
@@ -164,8 +183,15 @@ export const ChannelItem = (props) => {
                 <ModalConfirmAction result={getModalAction}/>
             </Modal>
 
-            <Modal title="Настройка канала" visible={modalChannel} setVisible={setModalChannel}>
-                <ModalFormChannel 
+            <Modal title="Настройка канала" visible={modalSettingsChannel} setVisible={setModalSettingsChannel}>
+                <ModalFormSettingsChannel 
+                    channel={props.channel}
+                    closeAfterSave={closeAfterSave}
+                />
+            </Modal>
+
+            <Modal title="Настройка прокси" visible={modalConfigureProxy} setVisible={setModalConfigureProxy}>
+                <ModalFormSettingsProxy 
                     channel={props.channel}
                     closeAfterSave={closeAfterSave}
                 />

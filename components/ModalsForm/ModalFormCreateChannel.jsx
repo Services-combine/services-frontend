@@ -8,7 +8,12 @@ export const ModalFormCreateChannel = ({closeAfterAdd}) => {
     const [isError, setIsError] = useState(null);
     const [channelId, setChannelId] = useState('');
     const [apiKey, setApiKey] = useState('');
-    const [tokenFile, setTokenFile] = useState(null);
+    const [ipProxy, setIpProxy] = useState('');
+    const [portProxy, setPortProxy] = useState('');
+    const [loginProxy, setLoginProxy] = useState('');
+    const [passwordProxy, setPasswordProxy] = useState('');
+    const [appTokenFile, setAppTokenFile] = useState(null);
+    const [userTokenFile, setUserTokenFile] = useState(null);
 
     async function addChannel(e) {
         try {
@@ -17,22 +22,32 @@ export const ModalFormCreateChannel = ({closeAfterAdd}) => {
 
 			formData.append('channel_id', channelId)
 			formData.append('api_key', apiKey)
-			formData.append('token_file', tokenFile)
+            formData.append('ip_proxy', ipProxy)
+            formData.append('port_proxy', portProxy)
+            formData.append('login_proxy', loginProxy)
+            formData.append('password_proxy', passwordProxy)
+			formData.append('app_token_file', appTokenFile)
+            formData.append('user_token_file', userTokenFile)
 			await Api().channels.addChannel(formData);
 
             setChannelId('')
             setApiKey('')
-            setTokenFile(null)
+            setIpProxy('')
+            setPortProxy('')
+            setLoginProxy('')
+            setPasswordProxy('')
+            setAppTokenFile(null)
+            setUserTokenFile(null)
             setIsError(null)
 			closeAfterAdd()
         } catch (e) {
-            console.log(e)
             if (e.response.data) {
                 if (
                     e.response.data.message === "Не верный api key" ||
-                    e.response.data.message === "Ошибка при скачивании токена приложения" || 
+                    e.response.data.message === "Ошибка при скачивании токена приложения" ||
+                    e.response.data.message === "Ошибка при скачивании токена клиента" || 
                     e.response.data.message === "Не верный channel id" ||
-                    e.response.data.message === "Такое channel id уже используется" ||
+                    e.response.data.message === "Такой channel id уже используется" ||
                     e.response.data.message === "Неудалось создать токен пользователя"
                 )
                     setIsError(e.response.data.message)
@@ -42,7 +57,12 @@ export const ModalFormCreateChannel = ({closeAfterAdd}) => {
             else if (e.code === "ERR_NETWORK") {
                 setChannelId('')
                 setApiKey('')
-                setTokenFile(null)
+                setIpProxy('')
+                setPortProxy('')
+                setLoginProxy('')
+                setPasswordProxy('')
+                setAppTokenFile(null)
+                setUserTokenFile(null)
                 setIsError(null)
                 closeAfterAdd()
             }
@@ -51,14 +71,21 @@ export const ModalFormCreateChannel = ({closeAfterAdd}) => {
         }
     }
 
-    const chooseFile = (e) => {
+    const chooseAppToken = (e) => {
         const file = e.target.files[0]
         if (file)
-            setTokenFile(file)
+            setAppTokenFile(file)
+    }
+
+    const chooseUserToken = (e) => {
+        const file = e.target.files[0]
+        if (file)
+            setUserTokenFile(file)
     }
 
     return (
-        <form className={styles.form__input} >
+        <form className={styles.form__add__channel} >
+            <h6 className={styles.title}>Данные канала</h6>
             <Input 
                 value={channelId} 
                 onChange={e => setChannelId(e.target.value)}
@@ -75,14 +102,60 @@ export const ModalFormCreateChannel = ({closeAfterAdd}) => {
             />
             <br/>
 
+            <h6 className={styles.title}>Данные прокси</h6>
+            <Input 
+                value={ipProxy}
+                onChange={e => setIpProxy(e.target.value)}
+                type='text' 
+                placeholder='Введите ip' 
+            />
+            <br/>
+
+            <Input 
+                value={portProxy}
+                onChange={e => setPortProxy(e.target.value)}
+                type='number' 
+                placeholder='Введите порт' 
+            />
+            <br/>
+
+            <Input 
+                value={loginProxy}
+                onChange={e => setLoginProxy(e.target.value)}
+                type='text' 
+                placeholder='Введите логин' 
+            />
+            <br/>
+
+            <Input 
+                value={passwordProxy}
+                onChange={e => setPasswordProxy(e.target.value)}
+                type='text' 
+                placeholder='Введите пароль' 
+            />
+            <br/>
+
+            <h6 className={styles.title}>Токены</h6>
             <label className={styles.choose__file}>
                 <span className={styles.choose__file__name} type="text">
-                    {tokenFile == null
-                        ? "Выберите .json токен"
-                        : tokenFile.name
+                    {appTokenFile == null
+                        ? "Токен приложения"
+                        : appTokenFile.name
                     }
                 </span>
-                <input type="file" name="file" accept="application/json" onChange={chooseFile} />        
+                <input type="file" name="file" accept="application/json" onChange={chooseAppToken} />        
+                <span className={styles.choose__file__title}>Выбрать</span>
+            </label>
+            <br/>
+
+            <label className={styles.choose__file}>
+                <span className={styles.choose__file__name} type="text">
+                    {userTokenFile == null
+                        ? "Токен клиента"
+                        : userTokenFile.name
+                    }
+                </span>
+                <input type="file" name="file" accept="application/json" onChange={chooseUserToken} />        
                 <span className={styles.choose__file__title}>Выбрать</span>
             </label>
             <br/>
@@ -93,7 +166,7 @@ export const ModalFormCreateChannel = ({closeAfterAdd}) => {
 
             <Button 
                 mode='fill' 
-                disabled={channelId == "" || apiKey == "" || tokenFile == null}
+                disabled={channelId == "" || apiKey == "" || ipProxy == "" || portProxy == "" || loginProxy == "" || passwordProxy == "" || appTokenFile == null || userTokenFile == null}
                 onClick={addChannel}
             >
                 Добавить
