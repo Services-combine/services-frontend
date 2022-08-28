@@ -8,10 +8,7 @@ export const ModalFormCreateChannel = ({closeAfterAdd}) => {
     const [isError, setIsError] = useState(null);
     const [channelId, setChannelId] = useState('');
     const [apiKey, setApiKey] = useState('');
-    const [ipProxy, setIpProxy] = useState('');
-    const [portProxy, setPortProxy] = useState('');
-    const [loginProxy, setLoginProxy] = useState('');
-    const [passwordProxy, setPasswordProxy] = useState('');
+    const [proxy, setProxy] = useState('');
     const [appTokenFile, setAppTokenFile] = useState(null);
     const [userTokenFile, setUserTokenFile] = useState(null);
 
@@ -22,20 +19,14 @@ export const ModalFormCreateChannel = ({closeAfterAdd}) => {
 
 			formData.append('channel_id', channelId)
 			formData.append('api_key', apiKey)
-            formData.append('ip_proxy', ipProxy)
-            formData.append('port_proxy', portProxy)
-            formData.append('login_proxy', loginProxy)
-            formData.append('password_proxy', passwordProxy)
+            formData.append('proxy', proxy)
 			formData.append('app_token_file', appTokenFile)
             formData.append('user_token_file', userTokenFile)
 			await Api().channels.addChannel(formData);
 
             setChannelId('')
             setApiKey('')
-            setIpProxy('')
-            setPortProxy('')
-            setLoginProxy('')
-            setPasswordProxy('')
+            setProxy('')
             setAppTokenFile(null)
             setUserTokenFile(null)
             setIsError(null)
@@ -57,10 +48,7 @@ export const ModalFormCreateChannel = ({closeAfterAdd}) => {
             else if (e.code === "ERR_NETWORK") {
                 setChannelId('')
                 setApiKey('')
-                setIpProxy('')
-                setPortProxy('')
-                setLoginProxy('')
-                setPasswordProxy('')
+                setProxy('')
                 setAppTokenFile(null)
                 setUserTokenFile(null)
                 setIsError(null)
@@ -104,34 +92,10 @@ export const ModalFormCreateChannel = ({closeAfterAdd}) => {
 
             <h6 className={styles.title}>Данные прокси</h6>
             <Input 
-                value={ipProxy}
-                onChange={e => setIpProxy(e.target.value)}
+                value={proxy}
+                onChange={e => setProxy(e.target.value)}
                 type='text' 
-                placeholder='Введите ip' 
-            />
-            <br/>
-
-            <Input 
-                value={portProxy}
-                onChange={e => setPortProxy(e.target.value)}
-                type='number' 
-                placeholder='Введите порт' 
-            />
-            <br/>
-
-            <Input 
-                value={loginProxy}
-                onChange={e => setLoginProxy(e.target.value)}
-                type='text' 
-                placeholder='Введите логин' 
-            />
-            <br/>
-
-            <Input 
-                value={passwordProxy}
-                onChange={e => setPasswordProxy(e.target.value)}
-                type='text' 
-                placeholder='Введите пароль' 
+                placeholder='ip:port:login:password' 
             />
             <br/>
 
@@ -166,7 +130,7 @@ export const ModalFormCreateChannel = ({closeAfterAdd}) => {
 
             <Button 
                 mode='fill' 
-                disabled={channelId == "" || apiKey == "" || ipProxy == "" || portProxy == "" || loginProxy == "" || passwordProxy == "" || appTokenFile == null || userTokenFile == null}
+                disabled={channelId == "" || apiKey == "" || appTokenFile == null || userTokenFile == null}
                 onClick={addChannel}
             >
                 Добавить

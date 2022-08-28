@@ -14,8 +14,8 @@ export const ChannelsApi = (instance) => ({
         return instance.post('/auth/user/channels/add', formData, config);
     },
 
-    async launchChannel(id, channel_id) {
-        return instance.post(`/auth/user/channels/${id}/launch`, {channel_id: channel_id})
+    async launchChannel(id) {
+        return instance.get(`/auth/user/channels/${id}/launch`)
     },
 
     async updateChannel(id, channel_id, api_key) {
@@ -30,7 +30,7 @@ export const ChannelsApi = (instance) => ({
         return instance.post(`/auth/user/channels/${id}/edit-channel`, {comment: comment, count_commented_videos: Number(count_commented_videos)})
     },
 
-    async editProxy(id, ip, port, login, password) {
-        return instance.post(`/auth/user/channels/${id}/edit-proxy`, {ip_proxy: ip, port_proxy: port, login_proxy: login, password_proxy: password})
+    async editProxy(id, proxy) {
+        return instance.post(`/auth/user/channels/${id}/edit-proxy`, {proxy: proxy})
     },
 })

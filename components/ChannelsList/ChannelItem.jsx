@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import Link from "next/link";
 import { clsx } from 'clsx';
 import { useState, useRef } from 'react';
 import styles from './ChannelsList.module.scss';
@@ -20,12 +21,12 @@ export const ChannelItem = (props) => {
     const [modalSettingsChannel, setModalSettingsChannel] = useState(false);
     const [modalConfigureProxy, setModalConfigureProxy] = useState(false);
     const defaultPhoto = "https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
-
+    
     async function launch() {
         try {
             if (!props.channel.launch) {
                 if (props.channel.comment !== "" && props.channel.count_commented_videos > 0) {
-                    await Api().channels.launchChannel(props.channel.id, props.channel.channel_id);
+                    await Api().channels.launchChannel(props.channel.id);
                     refreshData()
                 }
                 else {
@@ -123,7 +124,11 @@ export const ChannelItem = (props) => {
                     <img className={styles.channel__photo} src={defaultPhoto} width="50" height="50" border="0" />
 
                     <div className={styles.channel__info}>
-                        <p className={styles.channel__title}>{props.channel.title}</p>
+                        <Link href={`https://youtube.com/channel/${props.channel.channel_id}`}>
+                            <a className={styles.channel__title} target="_blank" rel="noopener noreferrer">
+                                {props.channel.title}
+                            </a>
+                        </Link>
                         <p className={styles.channel__description}>{props.channel.description}</p>
                     </div>
                 </div>
