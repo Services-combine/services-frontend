@@ -246,3 +246,69 @@
         color: red;
     }
 }
+
+.form__marks {
+    .marks__list {
+        list-style: none;
+        padding: 15px 0 10px 0;
+
+        .mark__item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+            
+            .title {
+                display: inline-flex;
+                align-items: center;
+                height: 22px;
+                border-radius: 4px;
+                padding: 0 6px;
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.804);
+                cursor: pointer;
+            }
+
+            .remove {
+                border-radius: 5px;
+                padding: 3px;
+                display: none;
+            }
+
+            .remove:hover {
+                background-color: $app-grey-color;
+            }
+        }
+
+        .mark__item:hover {
+            background-color: $app-background-color;
+
+            .remove {
+                display: block;
+            }
+        }
+    }
+
+    .add__mark {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        Input {
+            width: 90%;
+        }
+
+        Button {
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            margin-left: 5px;
+        }
+    }
+
+    .error {
+        font-size: 13px;
+        margin-bottom: 10px;
+        color: red;
+    }
+}

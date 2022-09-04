@@ -7,8 +7,10 @@ import { ChannelsList } from '../components/ChannelsList';
 import { Button } from '../components/UI/Button';
 import { Modal } from '../components/UI/Modal';
 import { ModalFormCreateChannel } from '../components/ModalsForm/ModalFormCreateChannel';
+import { ModalMarks } from '../components/ModalsForm/ModalMarks';
 import { NavigationBar } from '../components/NavigationBar';
 import { AiOutlineUserAdd } from 'react-icons/ai';
+import { BsFillBookmarksFill } from 'react-icons/bs';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 
 
@@ -16,6 +18,7 @@ const Channels = ({channels, error}) => {
 	const snackbarRef = useRef(null);
 	const router = useRouter();
 	const [modalAddChannel, setModalAddChannel] = useState(false);
+	const [modalMarks, setModalMarks] = useState(false);
 
 	const showSnackbar = (message, type) => {
 		if (snackbarRef.current)
@@ -51,6 +54,13 @@ const Channels = ({channels, error}) => {
 						Добавить канал
 					</p>
 				</Button>
+
+				<Button mode='fill' onClick={() => setModalMarks(true)}>
+					<p className={styles.action__item}>
+						<BsFillBookmarksFill className={styles.action__icon}/> 
+						Метки
+					</p>
+				</Button>
 			</ButtonToolbar>
 
 			{channels && channels.length !== 0
@@ -60,6 +70,21 @@ const Channels = ({channels, error}) => {
 
 			<Modal title='Добавление канала' visible={modalAddChannel} setVisible={setModalAddChannel}>
                 <ModalFormCreateChannel closeAfterAdd={closeAfterAdd}/>
+            </Modal>
+
+			<Modal title='Настройка меток' visible={modalMarks} setVisible={setModalMarks}>
+                <ModalMarks list_marks={[
+					{'title': 'Light gray', 'color': 'light-gray'},
+					{'title': 'Gray', 'color': 'gray'},
+					{'title': 'Brown', 'color': 'brown'},
+					{'title': 'Orange', 'color': 'orange'},
+					{'title': 'Yellow', 'color': 'yellow'},
+					{'title': 'Green', 'color': 'green'}, 
+					{'title': 'Blue', 'color': 'blue'},
+					{'title': 'Purple', 'color': 'purple'},
+					{'title': 'Pink', 'color': 'pink'},
+					{'title': 'Red', 'color': 'red'}
+					]}/>
             </Modal>
 		</div>
 	);
