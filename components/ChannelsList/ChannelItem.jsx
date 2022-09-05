@@ -13,6 +13,7 @@ import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai'
 import { BiRefresh } from 'react-icons/bi'
 import { TbPlugConnected } from 'react-icons/tb'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
+import { Tooltip } from "@nextui-org/react";
 
 export const ChannelItem = (props) => {
     const snackbarRef = useRef(null);
@@ -141,40 +142,51 @@ export const ChannelItem = (props) => {
             </div>
 
             <ButtonToolbar className={styles.channel__actions}>
-                <div 
-                    className={clsx(styles.action__item, props.channel.launch && styles.disable)}
-                    onClick={launch}
-                >
-                    <VscDebugStart className={styles.action__icon} />
-                </div>
+                
+                <Tooltip content={"Запустить"} rounded color="primary">
+                    <div 
+                        className={clsx(styles.action__item, props.channel.launch && styles.disable)}
+                        onClick={launch}
+                    >
+                        <VscDebugStart className={styles.action__icon} />
+                    </div>
+                </Tooltip>
 
-                <div 
-                    className={clsx(styles.action__item, props.channel.launch && styles.disable)}
-                    onClick={showModalSettingsChannel}
-                >
-                    <AiOutlineEdit className={styles.action__icon} />
-                </div>
+                <Tooltip content={"Редактирование комментария"} rounded color="primary">
+                     <div 
+                        className={clsx(styles.action__item, props.channel.launch && styles.disable)}
+                        onClick={showModalSettingsChannel}
+                    >
+                        <AiOutlineEdit className={styles.action__icon} />
+                    </div>
+                </Tooltip>
 
-                <div 
-                    className={clsx(styles.action__item, props.channel.launch && styles.disable)}
-                    onClick={showModalSettingsProxy}
-                >
-                    <TbPlugConnected className={styles.action__icon} />
-                </div>
+                <Tooltip content={"Настройка прокси"} rounded color="primary">
+                    <div 
+                        className={clsx(styles.action__item, props.channel.launch && styles.disable)}
+                        onClick={showModalSettingsProxy}
+                    >
+                        <TbPlugConnected className={styles.action__icon} />
+                    </div>
+                </Tooltip>
 
-                <div 
-                    className={clsx(styles.action__item, props.channel.launch && styles.disable)}
-                    onClick={update}
-                >
-                    <BiRefresh className={styles.action__icon} />
-                </div>
+                <Tooltip content={"Обновить данные"} rounded color="primary">
+                    <div 
+                        className={clsx(styles.action__item, props.channel.launch && styles.disable)}
+                        onClick={update}
+                    >
+                        <BiRefresh className={styles.action__icon} />
+                    </div>
+                </Tooltip>
 
-                <div 
-                    className={clsx(styles.action__item, styles.delete, props.channel.launch && styles.disable)}
-                    onClick={showModalAction}
-                >
-                    <AiOutlineDelete className={styles.action__icon} />
-                </div>
+                <Tooltip content={"Удалить"} rounded color="primary">
+                    <div 
+                        className={clsx(styles.action__item, styles.delete, props.channel.launch && styles.disable)}
+                        onClick={showModalAction}
+                    >
+                        <AiOutlineDelete className={styles.action__icon} />
+                    </div>
+                </Tooltip>
 
                 {props.channel.launch &&
                     <div className={styles.status}>

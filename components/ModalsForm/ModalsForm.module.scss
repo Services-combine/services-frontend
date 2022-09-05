@@ -269,21 +269,36 @@
                 cursor: pointer;
             }
 
-            .remove {
-                border-radius: 5px;
-                padding: 3px;
-                display: none;
-            }
+            .actions {
+                display: flex;
+                align-items: center;
 
-            .remove:hover {
-                background-color: $app-grey-color;
+                .remove, .more {
+                    border-radius: 5px;
+                    padding: 3px;
+                    display: none;
+                }
+    
+                .remove {
+                    font-size: 13px;
+                    margin-right: 2px;
+                }
+
+                .remove:hover {
+                    background-color: red;
+                    color: white
+                }
+
+                .more:hover {
+                    background-color: $app-grey-color;
+                }
             }
         }
 
         .mark__item:hover {
             background-color: $app-background-color;
 
-            .remove {
+            .remove, .more {
                 display: block;
             }
         }
