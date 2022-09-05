@@ -79,6 +79,7 @@ export const ModalMarks = ({list_marks}) => {
                                             <FiMoreHorizontal className={styles.more} />
                                         </div>
                                     </Dropdown.Trigger>
+                                    
                                     <Dropdown.Menu
                                         aria-label={index}
                                         color="primary"

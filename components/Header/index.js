@@ -8,9 +8,9 @@ import { selectUserData } from '../../redux/slices/user';
 import { useAppDispatch } from '../../redux/hooks';
 import { setUserData } from '../../redux/slices/user';
 import styles from "./Header.module.scss";
-import { Button } from '../UI/Button';
 import { AiOutlineUser } from "react-icons/ai"
 import { BiExit } from "react-icons/bi"
+import { Dropdown } from "@nextui-org/react";
 
 
 export const Header = () => {
@@ -25,9 +25,11 @@ export const Header = () => {
         router.push("/login")
     }
 
-    const handleClickLogout = () => {
-        logout()
-        setProfileMenuActive(false)
+    const handleClickAction = (action) => {
+        if (action === "logout") {
+            logout()
+            setProfileMenuActive(false)
+        }
     }
 
     return (
@@ -41,24 +43,39 @@ export const Header = () => {
 
                 <div className={clsx(styles.header__right, 'd-flex align-center')}>
                     {userData &&
-                        <div className={styles.profile}>
-                            <div
-                                onClick={() => setProfileMenuActive(!profileMenuActive)}
-                                className={styles.profile__btn}
-                            >
-                                <div className={styles.profile__icon}>
-                                    <AiOutlineUser/>
-                                </div>
-                            </div>
-
-                            <div className={profileMenuActive ? clsx(styles.profile__menu, styles.active) : styles.profile__menu}>
-                                <div className={styles.profile__actions}>
-                                    <div className={styles.profile__item} onClick={handleClickLogout}>
-                                        <BiExit className={styles.profile__icon} /> Выйти
+                        <Dropdown placement="bottom-right">
+                            <Dropdown.Trigger>
+                                <div className={styles.profile}>
+                                    <div
+                                        onClick={() => setProfileMenuActive(!profileMenuActive)}
+                                        className={styles.profile__btn}
+                                    >
+                                        <div className={styles.profile__icon}>
+                                            <AiOutlineUser/>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </Dropdown.Trigger>
+
+                            <Dropdown.Menu 
+                                color="primary" 
+                                aria-label="Avatar Actions"
+                                onAction={action => handleClickAction(action)}
+                            >
+                                <Dropdown.Item key="profile" css={{ height: "$16" }}>
+                                    <p>В системе как</p>
+                                    <b>{userData.username}</b>
+                                </Dropdown.Item>
+                                <Dropdown.Item 
+                                    key="logout" 
+                                    color="error" 
+                                    withDivider
+                                    icon={<BiExit size={22}/>}
+                                >
+                                    Выйти
+                                </Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
                     }
                 </div>
             </div>

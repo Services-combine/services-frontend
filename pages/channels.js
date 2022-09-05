@@ -64,7 +64,7 @@ const Channels = ({channels, marks, error}) => {
 			</ButtonToolbar>
 
 			{channels && channels.length !== 0
-				? <ChannelsList channels={channels} />
+				? <ChannelsList channels={channels} marks={marks} />
 				: <h4 className={styles.notification}>У вас пока нет каналов</h4>
 			}
 

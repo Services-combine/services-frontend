@@ -1,14 +1,20 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import styles from './ModalsForm.module.scss';
 import { Api } from '../../utils/api';
 import { Input } from '../UI/Input';
 import { Button } from '../UI/Button';
+import { Dropdown } from "@nextui-org/react";
 
 
-export const ModalFormSettingsChannel = ({channel, closeAfterSave}) => {
+export const ModalFormSettingsChannel = ({channel, marks, closeAfterSave}) => {
     const [isError, setIsError] = useState(null);
     const [commentText, setCommentText] = useState(channel.comment);
     const [countVideos, setCountVideos] = useState(channel.count_commented_videos);
+    const [selected, setSelected] = useState(new Set([marks[0] ? marks[0].title : '']));
+    const selectedValue = useMemo(
+        () => Array.from(selected),
+        [selected]
+    );
 
     async function saveSettings(e) {
         try {
@@ -46,6 +52,28 @@ export const ModalFormSettingsChannel = ({channel, closeAfterSave}) => {
                     onChange={e => setCountVideos(e.target.value)}
                     type='number'
                 />
+            </div>
+
+            <div className={styles.mark}>
+                <h6 className={styles.title}>Метка</h6>
+                
+                <Dropdown>
+                    <Dropdown.Button flat color="default" css={{ tt: "capitalize" }}>
+                        {selectedValue}
+                    </Dropdown.Button>
+                    <Dropdown.Menu
+                        aria-label="Single selection actions"
+                        color="default"
+                        disallowEmptySelection
+                        selectionMode="single"
+                        selectedKeys={selected}
+                        onSelectionChange={setSelected}
+                    >
+                        {marks.map(mark =>
+                            <Dropdown.Item key={mark.title}>{mark.title}</Dropdown.Item>
+                        )}
+                    </Dropdown.Menu>
+                </Dropdown>
             </div>
 
             {isError &&

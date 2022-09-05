@@ -152,7 +152,7 @@ export const ChannelItem = (props) => {
                     </div>
                 </Tooltip>
 
-                <Tooltip content={"Редактирование комментария"} rounded color="primary">
+                <Tooltip content={"Редактирование канала"} rounded color="primary">
                      <div 
                         className={clsx(styles.action__item, props.channel.launch && styles.disable)}
                         onClick={showModalSettingsChannel}
@@ -203,6 +203,7 @@ export const ChannelItem = (props) => {
             <Modal title="Настройка канала" visible={modalSettingsChannel} setVisible={setModalSettingsChannel}>
                 <ModalFormSettingsChannel 
                     channel={props.channel}
+                    marks={props.marks}
                     closeAfterSave={closeAfterSave}
                 />
             </Modal>
