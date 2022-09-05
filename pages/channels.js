@@ -14,7 +14,7 @@ import { BsFillBookmarksFill } from 'react-icons/bs';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 
 
-const Channels = ({channels, error}) => {
+const Channels = ({channels, marks, error}) => {
 	const snackbarRef = useRef(null);
 	const router = useRouter();
 	const [modalAddChannel, setModalAddChannel] = useState(false);
@@ -73,18 +73,7 @@ const Channels = ({channels, error}) => {
             </Modal>
 
 			<Modal title='Настройка меток' visible={modalMarks} setVisible={setModalMarks}>
-                <ModalMarks list_marks={[
-					{'title': 'Light gray', 'color': 'light-gray'},
-					{'title': 'Gray', 'color': 'gray'},
-					{'title': 'Brown', 'color': 'brown'},
-					{'title': 'Orange', 'color': 'orange'},
-					{'title': 'Yellow', 'color': 'yellow'},
-					{'title': 'Green', 'color': 'green'}, 
-					{'title': 'Blue', 'color': 'blue'},
-					{'title': 'Purple', 'color': 'purple'},
-					{'title': 'Pink', 'color': 'pink'},
-					{'title': 'Red', 'color': 'red'}
-					]}/>
+                <ModalMarks list_marks={marks} />
             </Modal>
 		</div>
 	);
@@ -92,11 +81,13 @@ const Channels = ({channels, error}) => {
 
 export const getServerSideProps = async (ctx) => {
     try {
-        const response = await Api(ctx).channels.getChannels();
+        const responseChannels = await Api(ctx).channels.getChannels();
+		const responseMarks = await Api(ctx).channels.getMarks();
 
         return {
             props: {
-                channels: response.data
+                channels: responseChannels.data,
+				marks: responseMarks.data,
             },
         }
     } catch (e) {

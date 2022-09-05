@@ -5,6 +5,14 @@ export const ChannelsApi = (instance) => ({
         return instance.get('/auth/user/channels')
     },
 
+    async getMarks() {
+        return instance.get('/auth/user/channels/get-marks')
+    },
+
+    async saveMarks(marks) {
+        return instance.post('/auth/user/channels/save-marks', marks)
+    },
+
     async addChannel(formData) {
         const config = {
             headers: {

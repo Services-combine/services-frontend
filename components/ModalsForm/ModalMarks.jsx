@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from "./ModalsForm.module.scss"
 import variables from '../../styles/colors.module.scss'
 import { Api } from '../../utils/api';
@@ -9,6 +9,10 @@ export const ModalMarks = ({list_marks}) => {
     const [isError, setIsError] = useState(null);
     const [marks, setMarks] = useState(list_marks);
     const [title, setTitle] = useState('');
+
+    useEffect(() => {
+        save()
+    }, [marks])
 
     let markColors = new Map();
     markColors.set('light-gray', variables.lightgraycolor)
@@ -22,27 +26,11 @@ export const ModalMarks = ({list_marks}) => {
     markColors.set('pink', variables.pinkcolor)
     markColors.set('red', variables.redcolor)
 
-    const options = [
-        { value: 'light-gray', label: 'Light gray' },
-        { value: 'gray', label: 'Gray' },
-        { value: 'brown', label: 'Brown' },
-        { value: 'orange', label: 'Orange' },
-        { value: 'yellow', label: 'Yellow' },
-        { value: 'green', label: 'Green' },
-        { value: 'blue', label: 'Blue' },
-        { value: 'purple', label: 'Purple' },
-        { value: 'pink', label: 'Pink' },
-        { value: 'red', label: 'Red' }
-    ]
-
-    async function save(e) {
+    async function save() {
         try {
-            e.preventDefault()
-			//await Api().channels.addChannel(formData);
-
-			closeAfterSave() 
+			await Api().channels.saveMarks(marks);
         } catch (e) {
-            setIsError('Ошибка при сохранении')
+            setIsError('Ошибка при сохранении меток')
         }
     }
     
