@@ -3,6 +3,7 @@ import styles from "./ModalsForm.module.scss"
 import variables from '../../styles/colors.module.scss'
 import { Api } from '../../utils/api';
 import { Input } from '../UI/Input';
+import { Mark } from '../UI/Mark';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { FiMoreHorizontal } from 'react-icons/fi';
 import { Dropdown } from "@nextui-org/react";
@@ -64,12 +65,7 @@ export const ModalMarks = ({list_marks}) => {
                 {marks &&
                     marks.map((mark, index) =>
                         <div key={index} className={styles.mark__item}>
-                            <li 
-                                className={styles.title}
-                                style={{backgroundColor: markColors.get(mark.color)}}
-                            >
-                                {mark.title}
-                            </li>
+                            <Mark title={mark.title} color={mark.color} />
                             <div className={styles.actions}>
                                 <AiOutlineDelete className={styles.remove} onClick={() => deleteMark(mark)} />
 

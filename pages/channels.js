@@ -69,7 +69,7 @@ const Channels = ({channels, marks, error}) => {
 			}
 
 			<Modal title='Добавление канала' visible={modalAddChannel} setVisible={setModalAddChannel}>
-                <ModalFormCreateChannel closeAfterAdd={closeAfterAdd}/>
+                <ModalFormCreateChannel marks={marks} closeAfterAdd={closeAfterAdd}/>
             </Modal>
 
 			<Modal title='Настройка меток' visible={modalMarks} setVisible={setModalMarks}>

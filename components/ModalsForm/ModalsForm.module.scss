@@ -166,10 +166,6 @@
         background-color: #e7e7e7;
     }
 
-    .mark {
-        margin-bottom: 10px;
-    }
-
     Input {
         width: 230px;
         margin-bottom: 10px;
@@ -249,6 +245,10 @@
         margin-bottom: 10px;
         color: red;
     }
+
+    Button {
+        margin-top: 10px;
+    }
 }
 
 .form__marks {
@@ -261,17 +261,6 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 5px;
-            
-            .title {
-                display: inline-flex;
-                align-items: center;
-                height: 22px;
-                border-radius: 4px;
-                padding: 0 6px;
-                font-size: 14px;
-                color: rgba(255, 255, 255, 0.804);
-                cursor: pointer;
-            }
 
             .actions {
                 display: flex;

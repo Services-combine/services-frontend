@@ -1,16 +1,17 @@
 
 
 export const ChannelsApi = (instance) => ({
-    async getChannels() {
-        return instance.get('/auth/user/channels')
-    },
 
     async getMarks() {
         return instance.get('/auth/user/channels/get-marks')
     },
 
-    async saveMarks(marks) {
-        return instance.post('/auth/user/channels/save-marks', marks)
+    async updateMark(marks) {
+        return instance.post('/auth/user/channels/update-mark', marks)
+    },
+
+    async getChannels() {
+        return instance.get('/auth/user/channels')
     },
 
     async addChannel(formData) {
@@ -35,10 +36,14 @@ export const ChannelsApi = (instance) => ({
     },
 
     async editChannel(id, comment, count_commented_videos) {
-        return instance.post(`/auth/user/channels/${id}/edit-channel`, {comment: comment, count_commented_videos: Number(count_commented_videos)})
+        return instance.post(`/auth/user/channels/${id}/edit-comment`, {comment: comment, count_commented_videos: Number(count_commented_videos)})
     },
 
     async editProxy(id, proxy) {
         return instance.post(`/auth/user/channels/${id}/edit-proxy`, {proxy: proxy})
+    },
+
+    async editMark(id, mark) {
+        return instance.post(`/auth/user/channels/${id}/edit-mark`, {mark: mark})
     },
 })

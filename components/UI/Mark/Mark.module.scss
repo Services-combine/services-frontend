@@ -1,0 +1,12 @@
+@import "../../../styles/vars";
+
+.title {
+    display: inline-flex;
+    align-items: center;
+    height: 22px;
+    border-radius: 4px;
+    padding: 0 6px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.804);
+    cursor: pointer;
+}

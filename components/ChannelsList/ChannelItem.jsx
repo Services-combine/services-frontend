@@ -8,12 +8,13 @@ import { Modal } from '../UI/Modal';
 import { ModalConfirmAction } from '../ModalsForm/ModalConfirmAction';
 import { ModalFormSettingsChannel } from '../ModalsForm/ModalFormSettingsChannel';
 import { ModalFormSettingsProxy } from '../ModalsForm/ModalFormSettingsProxy';
+import { Mark } from '../UI/Mark';
 import { VscDebugStart } from 'react-icons/vsc'
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai'
 import { BiRefresh } from 'react-icons/bi'
 import { TbPlugConnected } from 'react-icons/tb'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
-import { Tooltip } from "@nextui-org/react";
+import { Tooltip, Dropdown } from "@nextui-org/react";
 
 export const ChannelItem = (props) => {
     const snackbarRef = useRef(null);
@@ -70,6 +71,18 @@ export const ChannelItem = (props) => {
         }
     }
 
+    async function changeMark(title) {
+        
+    }
+
+    const getColor = (title) => {
+        for (var i = 0; i < props.marks.length; i++) {
+            if (props.marks[i].title === title) {
+                return props.marks[i].color
+            }
+        }
+    }
+
     const showModalSettingsChannel = () => {
         if (!props.channel.launch)
             setModalSettingsChannel(true)
@@ -117,7 +130,7 @@ export const ChannelItem = (props) => {
     const refreshData = () => {
 		router.replace(router.asPath);
 	}
-
+    
     return (
         <div className={styles.channel}>
             <div className={styles.channel__data}>
@@ -141,8 +154,29 @@ export const ChannelItem = (props) => {
                 </div>
             </div>
 
+            {props.channel.mark.title &&
+                <Dropdown placement="top-left">
+                    <Dropdown.Trigger>
+                        <div className={styles.mark}>
+                            <Mark title={props.channel.mark.title} color={props.channel.mark.color} />
+                        </div>
+                    </Dropdown.Trigger>
+                    <Dropdown.Menu
+                        aria-label="Single selection actions"
+                        color="default"
+                        disallowEmptySelection
+                        selectionMode="single"
+                        selectedKeys={props.channel.mark.title}
+                        onSelectionChange={title => changeMark(title)}
+                    >
+                        {props.marks.map(mark =>
+                            <Dropdown.Item key={mark.title}>{mark.title}</Dropdown.Item>
+                        )}
+                    </Dropdown.Menu>
+                </Dropdown>
+            }
+
             <ButtonToolbar className={styles.channel__actions}>
-                
                 <Tooltip content={"Запустить"} rounded color="primary">
                     <div 
                         className={clsx(styles.action__item, props.channel.launch && styles.disable)}
@@ -152,7 +186,7 @@ export const ChannelItem = (props) => {
                     </div>
                 </Tooltip>
 
-                <Tooltip content={"Редактирование канала"} rounded color="primary">
+                <Tooltip content={"Редактировать канал"} rounded color="primary">
                      <div 
                         className={clsx(styles.action__item, props.channel.launch && styles.disable)}
                         onClick={showModalSettingsChannel}
@@ -161,7 +195,7 @@ export const ChannelItem = (props) => {
                     </div>
                 </Tooltip>
 
-                <Tooltip content={"Настройка прокси"} rounded color="primary">
+                <Tooltip content={"Настроить прокси"} rounded color="primary">
                     <div 
                         className={clsx(styles.action__item, props.channel.launch && styles.disable)}
                         onClick={showModalSettingsProxy}
@@ -200,10 +234,9 @@ export const ChannelItem = (props) => {
                 <ModalConfirmAction result={getModalAction}/>
             </Modal>
 
-            <Modal title="Настройка канала" visible={modalSettingsChannel} setVisible={setModalSettingsChannel}>
+            <Modal title="Редактирование канала" visible={modalSettingsChannel} setVisible={setModalSettingsChannel}>
                 <ModalFormSettingsChannel 
                     channel={props.channel}
-                    marks={props.marks}
                     closeAfterSave={closeAfterSave}
                 />
             </Modal>
