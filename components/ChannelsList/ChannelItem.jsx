@@ -23,6 +23,9 @@ export const ChannelItem = (props) => {
     const [modalSettingsChannel, setModalSettingsChannel] = useState(false);
     const [modalConfigureProxy, setModalConfigureProxy] = useState(false);
     const defaultPhoto = "https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
+    const [markID, setMarkID] = useState(props.channel.mark)
+    const [markTitle, setMarkTitle] = useState(props.marks.find(m => m.id === props.channel.mark).title)
+    const [markColor, setMarkColor] = useState(props.marks.find(m => m.id === props.channel.mark).color)
     
     async function launch() {
         try {
@@ -71,15 +74,17 @@ export const ChannelItem = (props) => {
         }
     }
 
-    async function changeMark(title) {
-        
-    }
+    async function changeMark(mark) {
+        try {
+            setMarkID(mark.anchorKey)
 
-    const getColor = (title) => {
-        for (var i = 0; i < props.marks.length; i++) {
-            if (props.marks[i].title === title) {
-                return props.marks[i].color
-            }
+            const chooseMark = props.marks.find(m => m.id === mark.anchorKey)
+            setMarkTitle(chooseMark.title)
+            setMarkColor(chooseMark.color)
+
+            await Api().channels.editMark(props.channel.id, mark.anchorKey);
+        } catch (e) {
+			showSnackbar('Ошибка при изменении метки', 'error')
         }
     }
 
@@ -130,7 +135,7 @@ export const ChannelItem = (props) => {
     const refreshData = () => {
 		router.replace(router.asPath);
 	}
-    
+
     return (
         <div className={styles.channel}>
             <div className={styles.channel__data}>
@@ -154,29 +159,30 @@ export const ChannelItem = (props) => {
                 </div>
             </div>
 
-            {props.channel.mark.title &&
-                <Dropdown placement="top-left">
+            {props.channel.mark &&
+                <Dropdown placement="bottom-left">
                     <Dropdown.Trigger>
-                        <div className={styles.mark}>
-                            <Mark title={props.channel.mark.title} color={props.channel.mark.color} />
+                        <div className={styles.channel__mark}>
+                            <Mark title={markTitle} color={markColor} />
                         </div>
                     </Dropdown.Trigger>
                     <Dropdown.Menu
-                        aria-label="Single selection actions"
+                        aria-label={props.channel.mark}
                         color="default"
                         disallowEmptySelection
                         selectionMode="single"
-                        selectedKeys={props.channel.mark.title}
-                        onSelectionChange={title => changeMark(title)}
+                        selectedKeys={markID}
+                        onSelectionChange={mark => changeMark(mark)}
                     >
                         {props.marks.map(mark =>
-                            <Dropdown.Item key={mark.title}>{mark.title}</Dropdown.Item>
+                            <Dropdown.Item key={mark.id}>{mark.title}</Dropdown.Item>
                         )}
                     </Dropdown.Menu>
                 </Dropdown>
             }
 
             <ButtonToolbar className={styles.channel__actions}>
+                
                 <Tooltip content={"Запустить"} rounded color="primary">
                     <div 
                         className={clsx(styles.action__item, props.channel.launch && styles.disable)}

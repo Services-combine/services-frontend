@@ -51,7 +51,7 @@ export const ChannelsApi = (instance) => ({
         return instance.post(`/auth/user/channels/${id}/edit-proxy`, {proxy: proxy})
     },
 
-    async editMark(id, mark) {
-        return instance.post(`/auth/user/channels/${id}/edit-mark`, {mark: mark})
+    async editMark(channel_id, mark_id) {
+        return instance.post(`/auth/user/channels/${channel_id}/edit-mark`, {mark: mark_id})
     },
 })

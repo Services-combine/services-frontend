@@ -13,20 +13,9 @@ export const ModalFormCreateChannel = ({marks, closeAfterAdd}) => {
     const [proxy, setProxy] = useState('');
     const [appTokenFile, setAppTokenFile] = useState(null);
     const [userTokenFile, setUserTokenFile] = useState(null);
-    const [mark, setMark] = useState(new Set([marks[0] ? marks[0].title : '']));
-    const selectedValue = useMemo(
-        () => Array.from(mark),
-        [mark]
-    );
+    const [markID, setMarkID] = useState(marks[0] ? marks[0].id : '')
+    const [markTitle, setMarkTitle] = useState(marks[0] ? marks[0].title : '')
 
-    const getColor = () => {
-        for (var i = 0; i < marks.length; i++) {
-            if (marks[i].title === mark.anchorKey) {
-                return marks[i].color
-            }
-        }
-    }
-    
     async function addChannel(e) {
         try {
             e.preventDefault()
@@ -35,8 +24,7 @@ export const ModalFormCreateChannel = ({marks, closeAfterAdd}) => {
 			formData.append('channel_id', channelId)
 			formData.append('api_key', apiKey)
             formData.append('proxy', proxy)
-            formData.append('mark_title', mark.anchorKey)
-            formData.append('mark_color', getColor())
+            formData.append('mark', markID)
 			formData.append('app_token_file', appTokenFile)
             formData.append('user_token_file', userTokenFile)
 			await Api().channels.addChannel(formData);
@@ -44,6 +32,8 @@ export const ModalFormCreateChannel = ({marks, closeAfterAdd}) => {
             setChannelId('')
             setApiKey('')
             setProxy('')
+            setMarkID(marks[0] ? marks[0].id : '')
+            setMarkTitle(marks[0] ? marks[0].title : '')
             setAppTokenFile(null)
             setUserTokenFile(null)
             setIsError(null)
@@ -66,6 +56,8 @@ export const ModalFormCreateChannel = ({marks, closeAfterAdd}) => {
                 setChannelId('')
                 setApiKey('')
                 setProxy('')
+                setMarkID(marks[0] ? marks[0].id : '')
+                setMarkTitle(marks[0] ? marks[0].title : '')
                 setAppTokenFile(null)
                 setUserTokenFile(null)
                 setIsError(null)
@@ -88,6 +80,12 @@ export const ModalFormCreateChannel = ({marks, closeAfterAdd}) => {
             setUserTokenFile(file)
     }
 
+    const changeMark = (mark) => {
+        setMarkID(mark.anchorKey)
+        let chooseTitle = marks.find(m => m.id === mark.anchorKey).title
+        setMarkTitle(chooseTitle)
+    }
+    
     return (
         <form className={styles.form__add__channel} >
             <h6 className={styles.title}>Данные канала</h6>
@@ -144,18 +142,18 @@ export const ModalFormCreateChannel = ({marks, closeAfterAdd}) => {
             <h6 className={styles.title}>Метка</h6>
             <Dropdown>
                 <Dropdown.Button flat color="default" css={{ tt: "capitalize" }}>
-                    {selectedValue}
+                    {markTitle}
                 </Dropdown.Button>
                 <Dropdown.Menu
                     aria-label="Single selection actions"
                     color="default"
                     disallowEmptySelection
                     selectionMode="single"
-                    selectedKeys={mark}
-                    onSelectionChange={setMark}
+                    selectedKeys={markID}
+                    onSelectionChange={mark => changeMark(mark)}
                 >
                     {marks.map(mark =>
-                        <Dropdown.Item key={mark.title}>{mark.title}</Dropdown.Item>
+                        <Dropdown.Item key={mark.id}>{mark.title}</Dropdown.Item>
                     )}
                 </Dropdown.Menu>
             </Dropdown>

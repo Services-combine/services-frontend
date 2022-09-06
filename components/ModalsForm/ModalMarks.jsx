@@ -68,9 +68,12 @@ export const ModalMarks = ({list_marks}) => {
     }
 
     const changeColorMark = (color, index) => {
-        let newMark = [...marks]
-        newMark[index]['color'] = color.anchorKey
-        setMarks(newMark)
+        let newMarks = [...marks]
+        newMarks[index]['color'] = color.anchorKey
+        setMarks(newMarks)
+
+        const updateMark = {'title': marks[index]['title'], 'color': marks[index]['color']}
+        update(marks[index]['id'], updateMark)
     }
 
     return (
