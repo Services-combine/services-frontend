@@ -14,10 +14,6 @@ export const ModalMarks = ({list_marks}) => {
     const [marks, setMarks] = useState(list_marks);
     const [title, setTitle] = useState('');
 
-    useEffect(() => {
-        save()
-    }, [marks])
-
     let markColors = new Map();
     markColors.set('light-gray', variables.lightgraycolor)
     markColors.set('gray', variables.graycolor)
@@ -31,11 +27,27 @@ export const ModalMarks = ({list_marks}) => {
     markColors.set('red', variables.redcolor)
   
 
-    async function save() {
+    async function add(mark) {
         try {
-			await Api().channels.saveMarks(marks);
+			await Api().channels.addMark(mark);
         } catch (e) {
-            setIsError('Ошибка при сохранении меток')
+            setIsError('Ошибка при добавлении метки')
+        }
+    }
+
+    async function update(id, mark) {
+        try {
+			await Api().channels.updateMark(id, mark);
+        } catch (e) {
+            setIsError('Ошибка при обновлении метки')
+        }
+    }
+
+    async function remove(id) {
+        try {
+			await Api().channels.deleteMark(id);
+        } catch (e) {
+            setIsError('Ошибка при удалении метки')
         }
     }
     
@@ -46,11 +58,13 @@ export const ModalMarks = ({list_marks}) => {
             'color': colors[Math.floor(Math.random() * colors.length)]
         }
         setMarks([...marks, newMark])
+        add(newMark)
         setTitle('')
     }
 
     const deleteMark = (mark) => {
         setMarks(marks.filter(item => item !== mark))
+        remove(mark.id)
     }
 
     const changeColorMark = (color, index) => {

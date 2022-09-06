@@ -6,8 +6,16 @@ export const ChannelsApi = (instance) => ({
         return instance.get('/auth/user/channels/get-marks')
     },
 
-    async updateMark(marks) {
-        return instance.post('/auth/user/channels/update-mark', marks)
+    async addMark(mark) {
+        return instance.post('/auth/user/channels/add-mark', mark)
+    },
+
+    async updateMark(id, mark) {
+        return instance.post(`/auth/user/channels/${id}/update-mark`, mark)
+    },
+
+    async deleteMark(id) {
+        return instance.get(`/auth/user/channels/${id}/delete-mark`)
     },
 
     async getChannels() {
