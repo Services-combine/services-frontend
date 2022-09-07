@@ -14,9 +14,9 @@ export const ModalFormCreateChannel = ({marks, closeAfterAdd}) => {
     const [proxy, setProxy] = useState('');
     const [appTokenFile, setAppTokenFile] = useState(null);
     const [userTokenFile, setUserTokenFile] = useState(null);
-    const [markID, setMarkID] = useState(new Set([marks[0] ? marks[0].id : '']))
-    const [markTitle, setMarkTitle] = useState(marks[0] ? marks[0].title : '')
-    const [markColor, setMarkColor] = useState(marks[0] ? marks[0].color : '')
+    const [markID, setMarkID] = useState(new Set([marks && marks[0] ? marks[0].id : '']))
+    const [markTitle, setMarkTitle] = useState(marks && marks[0] ? marks[0].title : '')
+    const [markColor, setMarkColor] = useState(marks && marks[0] ? marks[0].color : '')
 
     async function addChannel(e) {
         try {
@@ -145,7 +145,7 @@ export const ModalFormCreateChannel = ({marks, closeAfterAdd}) => {
             <br/>
 
             <h6 className={styles.title}>Метка</h6>
-            <Dropdown>
+            <Dropdown placement="top-left">
                 <Dropdown.Trigger>
                     <div className={styles.channel__mark}>
                         <Mark title={markTitle} color={markColor} />
@@ -159,9 +159,11 @@ export const ModalFormCreateChannel = ({marks, closeAfterAdd}) => {
                     selectedKeys={markID}
                     onSelectionChange={mark => changeMark(mark)}
                 >
-                    {marks.map(mark =>
-                        <Dropdown.Item key={mark.id}>{mark.title}</Dropdown.Item>
-                    )}
+                    {marks &&
+                        marks.map(mark =>
+                            <Dropdown.Item key={mark.id}>{mark.title}</Dropdown.Item>
+                        )
+                    }
                 </Dropdown.Menu>
             </Dropdown>
 

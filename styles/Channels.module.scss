@@ -1,7 +1,10 @@
-.channels {
+@import "./vars";
 
+.channels {
     .actions {
         display: flex;
+        justify-content: space-between;
+        align-items: center;
         margin-top: 10px;
     
         Button {
@@ -15,6 +18,18 @@
                     font-size: 17px;
                     margin-right: 8px;
                 }
+            }
+        }
+
+        .filter {
+            margin-right: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .filter__arrow {
+                margin-left: 7px;
             }
         }
     }

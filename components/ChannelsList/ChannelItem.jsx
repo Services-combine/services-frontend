@@ -84,6 +84,7 @@ export const ChannelItem = (props) => {
             setMarkColor(chooseMark.color)
 
             await Api().channels.editMark(props.channel.id, mark.anchorKey);
+            refreshData()
         } catch (e) {
 			showSnackbar('Ошибка при изменении метки', 'error')
         }

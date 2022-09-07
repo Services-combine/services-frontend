@@ -6,13 +6,14 @@ import { wrapper } from '../redux/store';
 import { setUserData } from '../redux/slices/user';
 import { Api } from '../utils/api';
 import NextNProgress from "nextjs-progressbar";
+import { SSRProvider } from 'react-bootstrap';
 
 
 function App({ Component, pageProps }) {
 	const router = useRouter()
 
   	return (
-      	<>
+      	<SSRProvider>
 			<NextNProgress
 				color="#1e2d43"
 				startPosition={0.3}
@@ -32,7 +33,7 @@ function App({ Component, pageProps }) {
 				</MainLayout>
 				: <Component {...pageProps} />
 			}
-      	</>
+      	</SSRProvider>
   	);
 }
 
