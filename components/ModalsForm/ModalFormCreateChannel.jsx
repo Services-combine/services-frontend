@@ -1,8 +1,9 @@
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import styles from './ModalsForm.module.scss'
 import { Api } from '../../utils/api';
 import { Input } from '../UI/Input';
 import { Button } from '../UI/Button';
+import { Mark } from '../UI/Mark';
 import { Dropdown } from "@nextui-org/react";
 
 
@@ -13,8 +14,9 @@ export const ModalFormCreateChannel = ({marks, closeAfterAdd}) => {
     const [proxy, setProxy] = useState('');
     const [appTokenFile, setAppTokenFile] = useState(null);
     const [userTokenFile, setUserTokenFile] = useState(null);
-    const [markID, setMarkID] = useState(marks[0] ? marks[0].id : '')
+    const [markID, setMarkID] = useState(new Set([marks[0] ? marks[0].id : '']))
     const [markTitle, setMarkTitle] = useState(marks[0] ? marks[0].title : '')
+    const [markColor, setMarkColor] = useState(marks[0] ? marks[0].color : '')
 
     async function addChannel(e) {
         try {
@@ -34,6 +36,7 @@ export const ModalFormCreateChannel = ({marks, closeAfterAdd}) => {
             setProxy('')
             setMarkID(marks[0] ? marks[0].id : '')
             setMarkTitle(marks[0] ? marks[0].title : '')
+            setMarkColor(marks[0] ? marks[0].color : '')
             setAppTokenFile(null)
             setUserTokenFile(null)
             setIsError(null)
@@ -58,6 +61,7 @@ export const ModalFormCreateChannel = ({marks, closeAfterAdd}) => {
                 setProxy('')
                 setMarkID(marks[0] ? marks[0].id : '')
                 setMarkTitle(marks[0] ? marks[0].title : '')
+                setMarkColor(marks[0] ? marks[0].color : '')
                 setAppTokenFile(null)
                 setUserTokenFile(null)
                 setIsError(null)
@@ -81,9 +85,10 @@ export const ModalFormCreateChannel = ({marks, closeAfterAdd}) => {
     }
 
     const changeMark = (mark) => {
-        setMarkID(mark.anchorKey)
-        let chooseTitle = marks.find(m => m.id === mark.anchorKey).title
-        setMarkTitle(chooseTitle)
+        setMarkID(mark)
+        let chooseMark = marks.find(m => m.id === mark.anchorKey)
+        setMarkTitle(chooseMark.title)
+        setMarkColor(chooseMark.color)
     }
     
     return (
@@ -141,9 +146,11 @@ export const ModalFormCreateChannel = ({marks, closeAfterAdd}) => {
 
             <h6 className={styles.title}>Метка</h6>
             <Dropdown>
-                <Dropdown.Button flat color="default" css={{ tt: "capitalize" }}>
-                    {markTitle}
-                </Dropdown.Button>
+                <Dropdown.Trigger>
+                    <div className={styles.channel__mark}>
+                        <Mark title={markTitle} color={markColor} />
+                    </div>
+                </Dropdown.Trigger>
                 <Dropdown.Menu
                     aria-label="Single selection actions"
                     color="default"

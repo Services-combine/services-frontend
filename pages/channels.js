@@ -34,6 +34,11 @@ const Channels = ({channels, marks, error}) => {
 		refreshData()
     }
 
+	const reloadMarks = () => {
+		refreshData()
+		setModalMarks(true)
+	}
+
 	const refreshData = () => {
 		router.replace(router.asPath);
 	}
@@ -73,7 +78,7 @@ const Channels = ({channels, marks, error}) => {
             </Modal>
 
 			<Modal title='Настройка меток' visible={modalMarks} setVisible={setModalMarks}>
-                <ModalMarks list_marks={marks} />
+                <ModalMarks list_marks={marks} reloadMarks={reloadMarks} />
             </Modal>
 		</div>
 	);

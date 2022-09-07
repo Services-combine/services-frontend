@@ -1,7 +1,7 @@
 import styles from './ChannelsList.module.scss';
 import { ChannelItem } from './ChannelItem';
 
-export const ChannelsList = ({channels, marks}) => {
+export const ChannelsList = ({channels, marks}) => {    
     return (
         <div className={styles.channels}>
             {channels.map(channel => 

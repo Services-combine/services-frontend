@@ -9,10 +9,14 @@ import { FiMoreHorizontal } from 'react-icons/fi';
 import { Dropdown } from "@nextui-org/react";
 
 
-export const ModalMarks = ({list_marks}) => {
+export const ModalMarks = ({list_marks, reloadMarks}) => {
     const [isError, setIsError] = useState(null);
     const [marks, setMarks] = useState(list_marks);
     const [title, setTitle] = useState('');
+
+    useEffect(() => {
+        setMarks(list_marks)
+    }, [list_marks])
 
     let markColors = new Map();
     markColors.set('light-gray', variables.lightgraycolor)
@@ -25,11 +29,11 @@ export const ModalMarks = ({list_marks}) => {
     markColors.set('purple', variables.purplecolor)
     markColors.set('pink', variables.pinkcolor)
     markColors.set('red', variables.redcolor)
-  
 
     async function add(mark) {
         try {
 			await Api().channels.addMark(mark);
+            reloadMarks()
         } catch (e) {
             setIsError('Ошибка при добавлении метки')
         }
@@ -120,7 +124,7 @@ export const ModalMarks = ({list_marks}) => {
             </ul>
 
             <div className={styles.add__mark}>
-                <Input 
+                <Input
                     value={title}
                     onChange={e => setTitle(e.target.value)}
                     type='text' 

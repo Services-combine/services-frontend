@@ -23,9 +23,10 @@ export const ChannelItem = (props) => {
     const [modalSettingsChannel, setModalSettingsChannel] = useState(false);
     const [modalConfigureProxy, setModalConfigureProxy] = useState(false);
     const defaultPhoto = "https://as2.ftcdn.net/v2/jpg/03/49/49/79/1000_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.jpg"
-    const [markID, setMarkID] = useState(props.channel.mark)
-    const [markTitle, setMarkTitle] = useState(props.marks.find(m => m.id === props.channel.mark).title)
-    const [markColor, setMarkColor] = useState(props.marks.find(m => m.id === props.channel.mark).color)
+    const [markID, setMarkID] = useState(new Set([props.channel.mark]))
+    let mark = props.marks.find(m => m.id === props.channel.mark)
+    const [markTitle, setMarkTitle] = useState(mark.title)
+    const [markColor, setMarkColor] = useState(mark.color)
     
     async function launch() {
         try {
@@ -76,7 +77,7 @@ export const ChannelItem = (props) => {
 
     async function changeMark(mark) {
         try {
-            setMarkID(mark.anchorKey)
+            setMarkID(mark)
 
             const chooseMark = props.marks.find(m => m.id === mark.anchorKey)
             setMarkTitle(chooseMark.title)
