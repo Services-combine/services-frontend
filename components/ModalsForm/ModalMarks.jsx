@@ -34,6 +34,7 @@ export const ModalMarks = ({list_marks, reloadMarks}) => {
         try {
 			await Api().channels.addMark(mark);
             reloadMarks()
+            setIsError(null)
         } catch (e) {
             setIsError('Ошибка при добавлении метки')
         }
@@ -42,16 +43,29 @@ export const ModalMarks = ({list_marks, reloadMarks}) => {
     async function update(id, mark) {
         try {
 			await Api().channels.updateMark(id, mark);
+            setIsError(null)
         } catch (e) {
             setIsError('Ошибка при обновлении метки')
         }
     }
 
-    async function remove(id) {
+    async function remove(mark) {
         try {
-			await Api().channels.deleteMark(id);
+			await Api().channels.deleteMark(mark.id);
+            setMarks(marks.filter(item => item !== mark));
+            reloadMarks()
+            setIsError(null)
         } catch (e) {
-            setIsError('Ошибка при удалении метки')
+            if (e.response.data) {
+                if (
+                    e.response.data.message === "Эта метка используется"
+                )
+                    setIsError(e.response.data.message)
+                else
+                    setIsError('Ошибка при добавлении канала')
+            }
+            else
+               setIsError('Ошибка при удалении метки')
         }
     }
     
@@ -64,11 +78,6 @@ export const ModalMarks = ({list_marks, reloadMarks}) => {
         setMarks([...marks, newMark])
         add(newMark)
         setTitle('')
-    }
-
-    const deleteMark = (mark) => {
-        setMarks(marks.filter(item => item !== mark))
-        remove(mark.id)
     }
 
     const changeColorMark = (color, index) => {
@@ -88,7 +97,7 @@ export const ModalMarks = ({list_marks, reloadMarks}) => {
                         <div key={index} className={styles.mark__item}>
                             <Mark title={mark.title} color={mark.color} />
                             <div className={styles.actions}>
-                                <AiOutlineDelete className={styles.remove} onClick={() => deleteMark(mark)} />
+                                <AiOutlineDelete className={styles.remove} onClick={() => remove(mark)} />
 
                                 <Dropdown>
                                     <Dropdown.Trigger>
