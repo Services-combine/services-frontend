@@ -131,7 +131,7 @@ export const AccountItem = (props) => {
             </div>
 
             <Modal title="Удаление аккаунта" visible={modalDelete} setVisible={setModalDelete}>
-                <ModalConfirmAction result={getModalAction}/>
+                <ModalConfirmAction description="Вы действительно хотите удалить аккаунт?" result={getModalAction}/>
             </Modal>
 
             <Modal title="Аккаунт" visible={modalAccount} setVisible={setModalAccount}>

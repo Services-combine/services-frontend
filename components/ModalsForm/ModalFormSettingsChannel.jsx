@@ -3,6 +3,7 @@ import styles from './ModalsForm.module.scss';
 import { Api } from '../../utils/api';
 import { Input } from '../UI/Input';
 import { Button } from '../UI/Button';
+import { Textarea } from '../UI/Textarea';
 
 
 export const ModalFormSettingsChannel = ({channel, closeAfterSave}) => {
@@ -31,8 +32,7 @@ export const ModalFormSettingsChannel = ({channel, closeAfterSave}) => {
         <form className={styles.form__channel}>
             <div className={styles.comment__channel}>
                 <h6 className={styles.title}>Комментарий</h6>
-                <textarea 
-                    className={styles.comment}
+                <Textarea 
                     value={commentText} 
                     onChange={e => setCommentText(e.target.value)}
                     placeholder="Введите комментарий"

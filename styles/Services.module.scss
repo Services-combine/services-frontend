@@ -4,10 +4,14 @@
     width: 100%;
 
     .services__list {
-        padding: 15px 0px 0px 0px;
+        margin-top: 5px;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+        display: -webkit-flex;
         display: flex;
     
         .service__item {
+            margin-bottom: 15px;
             text-decoration: none;
 
             .service__block {
@@ -52,6 +56,16 @@
 
             .service__block {
                 background-color: rgb(236, 52, 52);
+            }
+        }
+    }
+}
+
+@media (max-width: 412px) {
+    .services {
+        .services__list {
+            .youtube {
+                margin-left: 0;
             }
         }
     }

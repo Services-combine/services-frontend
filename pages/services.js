@@ -12,7 +12,7 @@ const Services = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <div className={clsx(styles.services__list)}>
+            <div className={styles.services__list}>
                 <Link href="/inviting">
                     <div className={clsx(styles.service__item, styles.telegram)}>
                         <div className={styles.service__block}>

@@ -1,7 +1,7 @@
 import styles from "./ModalsForm.module.scss"
 import { Button } from '../UI/Button';
 
-export const ModalConfirmAction = ({result}) => {
+export const ModalConfirmAction = ({description, result}) => {
     
     const addResultAction = (action) => {
 		const newAction = {
@@ -12,10 +12,10 @@ export const ModalConfirmAction = ({result}) => {
 
     return (
         <div className={styles.form__confirm}>
-            <h5 className={styles.confirm__title}>Вы уверены?</h5>
+            <p className={styles.confirm__title}>{description}</p>
 
             <div className={styles.actions}>
-                <Button onClick={() => addResultAction(true)}>Да</Button>
+                <Button mode='fill'  onClick={() => addResultAction(true)}>Да</Button>
                 <Button 
                     mode='outline' 
                     className={styles.button__cancel} 

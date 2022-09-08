@@ -21,7 +21,16 @@ export const ModalFormCreateAccount = ({closeAfterCreate}) => {
             setIsError(null)
 			closeAfterCreate()
         } catch (e) {
-			setIsError('Ошибка при создании аккаунта')
+            if (e.response.data) {
+                if (
+                    e.response.data.message === "Такой номер уже используется"
+                )
+                    setIsError(e.response.data.message)
+                else
+                    setIsError('Ошибка при добавлении канала')
+            }
+            else
+    			setIsError('Ошибка при создании аккаунта')
         }
     }
 

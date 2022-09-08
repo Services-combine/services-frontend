@@ -239,7 +239,7 @@ export const ChannelItem = (props) => {
             </ButtonToolbar>
 
             <Modal title="Удаление канала" visible={modalDelete} setVisible={setModalDelete}>
-                <ModalConfirmAction result={getModalAction}/>
+                <ModalConfirmAction description="Вы действительно хотите удалить канал?" result={getModalAction}/>
             </Modal>
 
             <Modal title="Редактирование канала" visible={modalSettingsChannel} setVisible={setModalSettingsChannel}>

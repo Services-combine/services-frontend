@@ -1,7 +1,10 @@
 @import "../../styles/vars";
 
 .folders {
-    padding-top: 15px;
+    margin-top: 15px;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    display: -webkit-flex;
     display: flex;
 
     .folder {
@@ -11,7 +14,7 @@
         width: 100px;
         height: 100px;
         overflow: hidden;
-        display: inline-block;
+        display: block;
     
         .folder__icon {
             font-size: 50px;

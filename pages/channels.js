@@ -17,25 +17,25 @@ import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import { Dropdown } from "@nextui-org/react";
 
 
-const Channels = ({channels, list_marks, error}) => {
+const Channels = ({channels, marks, error}) => {
 	const snackbarRef = useRef(null);
 	const router = useRouter();
 	const [modalAddChannel, setModalAddChannel] = useState(false);
 	const [modalMarks, setModalMarks] = useState(false);
-	const [marks, setMarks] = useState(list_marks)
+	const [filterMarks, setFilterMarks] = useState([
+		{
+			'id': 'all',
+            'title': 'Все',
+            'color': 'blue'
+        }
+	])
 	const [filterID, setFilterID] = useState(new Set(['all']))
 	const [filterTitle, setFilterTitle] = useState('Все')
 	const [filterColor, setFilterColor] = useState('blue')
 
 	useEffect(() => {
-		const defaultMark = {
-			'id': 'all',
-            'title': 'Все',
-            'color': 'blue'
-        }
-        setMarks([...list_marks, defaultMark])
-	}, [list_marks])
-	
+		setFilterMarks([...filterMarks, ...marks])
+	}, [marks])
 
 	const showSnackbar = (message, type) => {
 		if (snackbarRef.current)
@@ -53,7 +53,7 @@ const Channels = ({channels, list_marks, error}) => {
 
 	const changeFilter = (mark) => {
 		setFilterID(mark)
-		let chooseMark = marks.find(m => m.id === mark.anchorKey)
+		let chooseMark = filterMarks.find(m => m.id === mark.anchorKey)
         setFilterTitle(chooseMark.title)
         setFilterColor(chooseMark.color)
 	}
@@ -108,8 +108,8 @@ const Channels = ({channels, list_marks, error}) => {
 						selectedKeys={filterID}
 						onSelectionChange={mark => changeFilter(mark)}
 					>
-						{marks &&
-							marks.map(mark =>
+						{filterMarks &&
+							filterMarks.map(mark =>
 								<Dropdown.Item key={mark.id}>{mark.title}</Dropdown.Item>
 							)
 						}
@@ -117,7 +117,7 @@ const Channels = ({channels, list_marks, error}) => {
 				</Dropdown>
 			</ButtonToolbar>
 
-			{channels && channels.length && marks.length !== 0
+			{channels && channels.length && marks && marks.length
 				? <ChannelsList channels={channels} marks={marks} filter={filterID.values().next().value} />
 				: <h4 className={styles.notification}>У вас пока нет каналов</h4>
 			}
@@ -141,7 +141,7 @@ export const getServerSideProps = async (ctx) => {
         return {
             props: {
                 channels: responseChannels.data,
-				list_marks: responseMarks.data,
+				marks: responseMarks.data,
             },
         }
     } catch (e) {

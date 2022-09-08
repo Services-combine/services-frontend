@@ -1,6 +1,5 @@
 import clsx from 'clsx';
 import Link from "next/link";
-import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { destroyCookie } from "nookies";
 import { useAppSelector } from '../../redux/hooks';
@@ -17,7 +16,6 @@ export const Header = () => {
     const dispatch = useAppDispatch();
     const userData = useAppSelector(selectUserData);
     const router = useRouter();
-    const [profileMenuActive, setProfileMenuActive] = useState(false);
 
     async function logout() {
         destroyCookie(null, 'token')
@@ -28,7 +26,6 @@ export const Header = () => {
     const handleClickAction = (action) => {
         if (action === "logout") {
             logout()
-            setProfileMenuActive(false)
         }
     }
 
@@ -46,10 +43,7 @@ export const Header = () => {
                         <Dropdown placement="bottom-right">
                             <Dropdown.Trigger>
                                 <div className={styles.profile}>
-                                    <div
-                                        onClick={() => setProfileMenuActive(!profileMenuActive)}
-                                        className={styles.profile__btn}
-                                    >
+                                    <div className={styles.profile__btn}>
                                         <div className={styles.profile__icon}>
                                             <AiOutlineUser/>
                                         </div>
@@ -59,7 +53,7 @@ export const Header = () => {
 
                             <Dropdown.Menu 
                                 color="primary" 
-                                aria-label="Avatar Actions"
+                                aria-label={userData.id}
                                 onAction={action => handleClickAction(action)}
                             >
                                 <Dropdown.Item key="profile" css={{ height: "$16" }}>

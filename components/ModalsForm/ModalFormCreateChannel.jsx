@@ -4,6 +4,7 @@ import { Api } from '../../utils/api';
 import { Input } from '../UI/Input';
 import { Button } from '../UI/Button';
 import { Mark } from '../UI/Mark';
+import { IoIosArrowDown } from 'react-icons/io';
 import { Dropdown } from "@nextui-org/react";
 
 
@@ -149,6 +150,7 @@ export const ModalFormCreateChannel = ({marks, closeAfterAdd}) => {
                 <Dropdown.Trigger>
                     <div className={styles.channel__mark}>
                         <Mark title={markTitle} color={markColor} />
+                        <IoIosArrowDown className={styles.marks__arrow} />
                     </div>
                 </Dropdown.Trigger>
                 <Dropdown.Menu
