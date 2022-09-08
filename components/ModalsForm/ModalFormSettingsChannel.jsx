@@ -19,7 +19,7 @@ export const ModalFormSettingsChannel = ({channel, closeAfterSave}) => {
                 setIsError("Количество комментируемых видео не может быть больше количества всех видео на канале")
             }
             else {
-                await Api().channels.editChannel(channel.id, commentText, countVideos, {'title': mark.anchorKey, 'color': getColor()});
+                await Api().channels.editChannel(channel.id, commentText, countVideos);
                 closeAfterSave("settings_channel")
                 setIsError(null)
             }

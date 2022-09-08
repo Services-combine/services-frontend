@@ -22,19 +22,19 @@ const Channels = ({channels, marks, error}) => {
 	const router = useRouter();
 	const [modalAddChannel, setModalAddChannel] = useState(false);
 	const [modalMarks, setModalMarks] = useState(false);
-	const [filterMarks, setFilterMarks] = useState([
-		{
-			'id': 'all',
-            'title': 'Все',
-            'color': 'blue'
-        }
-	])
+	const [filterMarks, setFilterMarks] = useState([]);
 	const [filterID, setFilterID] = useState(new Set(['all']))
 	const [filterTitle, setFilterTitle] = useState('Все')
 	const [filterColor, setFilterColor] = useState('blue')
 
 	useEffect(() => {
-		setFilterMarks([...filterMarks, ...marks])
+		setFilterMarks([...[
+			{
+				'id': 'all',
+				'title': 'Все',
+				'color': 'blue'
+			}
+		], ...marks])
 	}, [marks])
 
 	const showSnackbar = (message, type) => {

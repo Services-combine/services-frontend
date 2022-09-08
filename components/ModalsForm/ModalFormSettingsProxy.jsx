@@ -22,13 +22,14 @@ export const ModalFormSettingsProxy = ({channel, closeAfterSave}) => {
     }
 
     return (
-        <form className={styles.form__channel}>
+        <form className={styles.form__proxy}>
             <Input 
                 value={proxy}
                 onChange={e => setProxy(e.target.value)}
                 type='text'
                 placeholder='ip:port:login:password' 
             />
+            <br/>
 
             {isError &&
                 <p className={styles.error}>{isError}</p>

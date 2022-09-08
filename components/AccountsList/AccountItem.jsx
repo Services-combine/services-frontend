@@ -112,7 +112,7 @@ export const AccountItem = (props) => {
                                         <BsCheckLg />
                                     </h6>
                                     : 
-                                    <h6 className={clsx(styles.status__block, styles.info__block)} unblocking={props.account.status_block}>
+                                    <h6 className={clsx(styles.status__block, styles.info__block)}>
                                         <FaInfoCircle />
                                     </h6>
                                 }
