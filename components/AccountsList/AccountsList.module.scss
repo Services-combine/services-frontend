@@ -69,13 +69,6 @@
                 .info__block {
                     color: rgb(81, 133, 211);
                 }
-
-                .info__block:hover::before {
-                    content: attr(unblocking);
-                    font-size: 18px;
-                    color: #000;
-                    padding-right: 5px;
-                }
             }
 
             .delete {

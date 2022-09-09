@@ -10,6 +10,7 @@ import { Modal } from '../UI/Modal';
 import { RiDeleteBinFill } from "react-icons/ri"
 import { BsCheckLg } from "react-icons/bs"
 import { FaInfoCircle } from "react-icons/fa"
+import { Tooltip } from "@nextui-org/react";
 
 export const AccountItem = (props) => {
     const router = useRouter();
@@ -112,9 +113,11 @@ export const AccountItem = (props) => {
                                         <BsCheckLg />
                                     </h6>
                                     : 
-                                    <h6 className={clsx(styles.status__block, styles.info__block)}>
-                                        <FaInfoCircle />
-                                    </h6>
+                                    <Tooltip content={props.account.status_block} rounded color="primary">
+                                        <h6 className={clsx(styles.status__block, styles.info__block)}>
+                                            <FaInfoCircle />
+                                        </h6>
+                                    </Tooltip>
                                 }
 
                                 {props.account.launch &&
