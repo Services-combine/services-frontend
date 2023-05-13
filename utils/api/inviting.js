@@ -69,12 +69,22 @@ export const InvitingApi = (instance) => ({
         return instance.get(`/auth/user/inviting/${folderID}/launch-mailing-groups`)
     },
 
+    async joinGroup(folderID) {
+        return instance.get(`/auth/user/inviting/${folderID}/join-group`)
+    },
+
     async deleteFolder(folderID) {
         return instance.get(`/auth/user/inviting/${folderID}/delete`)
     },
 
-    async createAccount(folderID, name, phone) {
-        return instance.post(`/auth/user/inviting/${folderID}/create-account`, {name: name, phone: phone})
+    async createAccount(folderID, formData) {
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        }
+        console.log(formData)
+        return instance.post(`/auth/user/inviting/${folderID}/create-account`, formData, config)
     },
 
     async saveSettingsAccount(folderID, accountID, name, interval, folder) {

@@ -142,7 +142,7 @@ export const ChannelItem = (props) => {
         <div className={styles.channel}>
             <div className={styles.channel__data}>
                 <div className={styles.channel__main__data}>
-                    <img className={styles.channel__photo} src={defaultPhoto} width="50" height="50" border="0" />
+                    <img className={styles.channel__photo} src={props.channel.photo} width="50" height="50" border="0" />
 
                     <div className={styles.channel__info}>
                         <Link href={`https://youtube.com/channel/${props.channel.channel_id}`}>

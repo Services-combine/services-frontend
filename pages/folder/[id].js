@@ -143,53 +143,6 @@ const Folder = ({folders, accounts, accountsMove, countAccounts, dataFolder, pat
 		}
 	}
 
-	async function sendCodeParsing(accountID) {
-		try {
-			await Api().inviting.sendCodeParsing(router.query.id, accountID);
-		} catch (e) {
-			showSnackbar('Ошибка при отправке кода', 'error')
-		}
-	}
-
-	async function parsingApi(accountID, code) {
-		try {
-			if (code === '') {
-				setIsError('Вы не ввели код');
-				setTimeout(() => {
-					setIsError(null)
-				}, timeout)
-			}
-			else {
-				await Api().inviting.parsingApi(router.query.id, accountID, code);
-				refreshData()
-			}
-		} catch (e) {
-			showSnackbar('Ошибка при парсинге API', 'error')
-		}
-	}
-
-	async function sendCodeSession(accountID) {
-		try {
-			await Api().inviting.sendCodeSession(router.query.id, accountID);
-		} catch (e) {
-			showSnackbar('Ошибка при отправке кода', 'error')
-		}
-	}
-
-	async function createSession(accountID, code) {
-		try {
-			if (code === '') {
-				showSnackbar('Вы не ввели код', 'error');
-			}
-			else {
-				await Api().inviting.createSession(router.query.id, accountID, code);
-				refreshData()
-			}
-		} catch (e) {
-			showSnackbar('Ошибка при создании .session файла', 'error')
-		}
-	}
-
     const getModalInput = (getInput) => {
 		if (getInput.mode === "createFolder") {
 			setModalCreateFolder(false);
@@ -225,7 +178,6 @@ const Folder = ({folders, accounts, accountsMove, countAccounts, dataFolder, pat
 
 	const getModalLaunch = (mode=null) => {
 		setModalLaunch(false);
-		fetchDataFolder('reload_accounts');
 		
 		if (mode === 'inviting')
 			dataFolder.inviting = true
@@ -233,6 +185,8 @@ const Folder = ({folders, accounts, accountsMove, countAccounts, dataFolder, pat
 			dataFolder.mailing_usernames = true
 		else if (mode === 'mailing_groups')
 			dataFolder.mailing_groups = true
+
+		refreshData()
 	}
 
 	const closeAfterCreate = () => {
@@ -247,8 +201,10 @@ const Folder = ({folders, accounts, accountsMove, countAccounts, dataFolder, pat
     return (
         <div className={styles.folder}>
             <Head>
-                <title>Папка - {dataFolder.name}</title>
-                <link rel="icon" href="/favicon.ico" />
+				{dataFolder.name &&
+	                <title>Папка - {dataFolder.name}</title>
+				}
+					<link rel="icon" href="/favicon.ico" />
             </Head>
 
 			<div className={styles.folder__header}>
@@ -347,10 +303,6 @@ const Folder = ({folders, accounts, accountsMove, countAccounts, dataFolder, pat
 					accountsMove={accountsMove}
 					folderName={dataFolder.name}
                     remove={deleteAccount} 
-                    sendCodeParsing={sendCodeParsing} 
-                    parsingApi={parsingApi} 
-                    sendCodeSession={sendCodeSession} 
-                    createSession={createSession} 
                 />
 			}
 

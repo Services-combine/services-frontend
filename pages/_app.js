@@ -13,7 +13,7 @@ function App({ Component, pageProps }) {
 	const router = useRouter()
 
   	return (
-      	<SSRProvider>
+	  	<SSRProvider>
 			<NextNProgress
 				color="#1e2d43"
 				startPosition={0.3}
@@ -33,34 +33,33 @@ function App({ Component, pageProps }) {
 				</MainLayout>
 				: <Component {...pageProps} />
 			}
-      	</SSRProvider>
+	  	</SSRProvider>
   	);
 }
 
 App.getInitialProps = wrapper.getInitialAppProps(store => async ({ctx, Component}) => {
-    try {
+	try {
 		const user = await Api(ctx).auth.getMe();
 		store.dispatch(setUserData(user.data));
 
-        if (ctx.asPath === '/login') {
-            ctx.res.writeHead(302, {
-                Location: '/404'
-            });
-            ctx.res.end();
-        }
+		if (ctx.asPath === '/login') {
+			ctx.res.writeHead(302, {
+				Location: '/404'
+			});
+			ctx.res.end();
+		}
 	} catch (e) {
 		if (ctx.asPath !== '/login') {
 			ctx.res.writeHead(302, {
 				Location: '/login'
 			});
 			ctx.res.end();
-        }
+		}
 	}
 
-    return {
-        pageProps: Component.getInitialProps ? await Component.getInitialProps({... ctx, store}) : {},
-    };
+	return {
+		pageProps: Component.getInitialProps ? await Component.getInitialProps({... ctx, store}) : {},
+	};
 })
 
 export default wrapper.withRedux(App);
-

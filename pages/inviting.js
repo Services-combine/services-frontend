@@ -22,6 +22,12 @@ const Inviting = ({folders, countAccounts, settings, error}) => {
 	const [modalCreateFolder, setModalCreateFolder] = useState(false);
 	const [modalSettings, setModalSettings] = useState(false);
 
+	const showSnackbar = (message, type) => {
+        // snackbarRef.current.show(message, type);
+		console.log(message)
+		alert(message)
+    }
+
     if (error) {
         showSnackbar(error, 'error')
     }
@@ -53,10 +59,6 @@ const Inviting = ({folders, countAccounts, settings, error}) => {
 	const getModalSettings = (settings) => {
         setModalSettings(false);
         saveSettings(settings);
-    }
-
-	const showSnackbar = (message, type) => {
-        snackbarRef.current.show(message, type);
     }
 
 	const refreshData = () => {
@@ -91,7 +93,7 @@ const Inviting = ({folders, countAccounts, settings, error}) => {
 				</Button>
 			</ButtonToolbar>
 
-			{folders.length !== 0
+			{folders !== null && folders.length != 0
 				? <FoldersList folders={folders} />
 				: <h4 className={styles.notification}>У вас пока нет папок</h4>
 			}
@@ -113,6 +115,9 @@ export const getServerSideProps = async (ctx) => {
     try {
         const responseFolders = await Api(ctx).inviting.getFolders();
 		const responseSettings = await Api(ctx).inviting.getSettings();
+
+		console.log(responseFolders.data)
+		console.log(responseSettings.data)
 
         return {
             props: {

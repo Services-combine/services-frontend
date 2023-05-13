@@ -29,19 +29,6 @@
             display: flex;
             align-items: center;
 
-            .actions__parsing, .actions__create {
-                float: left;
-
-                .action__button {
-                    padding: 1px 0;
-                }
-            }
-
-            .actions__create Input, .actions__parsing Input {
-                width: 100px;
-                margin: 0 5px;
-            }
-
             .actions__status {
                 float: right;
 
